@@ -1,22 +1,31 @@
 import { motion } from 'framer-motion'
-import { GraduationCap, Calendar, MapPin, BookOpen } from 'lucide-react'
+import { GraduationCap, Calendar, MapPin, BookOpen, Award, Code2 } from 'lucide-react'
 
 const Education = () => {
   const educationData = [
     {
+      type: "Academic",
       degree: "B.Sc. in Computer Science & Engineering",
       institution: "Metropolitan University, Sylhet",
       period: "2023 — Present (4th Year / 1st Semester)",
       location: "Sylhet, Bangladesh",
       description: "Focusing on Software Engineering, Data Structures, and Web Technologies. Currently working on final year research/project.",
-      cgpa: "Current Semester: 4th Year / 2nd Semester", // Apni ekhane CGPA add korte paren
-      skills: ["Data Structures", "Algorithms", "Software Engineering", "Database Management"]
+      skills: ["Data Structures", "Algorithms", "DBMS", "Artificial Intelligence"]
+    },
+    {
+      type: "Certification",
+      degree: "Complete Web Development (Level-1)",
+      institution: "Programming Hero",
+      period: "Running (90% Completed)",
+      location: "Online (Jhankar Mahbub)",
+      description: "Intensive training on MERN Stack (MongoDB, Express, React, Node.js). Working on various full-stack industry projects.",
+      skills: ["React.js", "Firebase", "Tailwind CSS", "Node.js","MongoDB"],
+      progress: 90 
     }
   ]
 
   return (
     <section id="education" className="py-24 relative overflow-hidden">
-      {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-500/5 blur-[120px] -z-10" />
 
       <div className="max-w-7xl mx-auto px-6">
@@ -26,31 +35,30 @@ const Education = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h3 className="text-4xl font-bold text-white mb-4">Education</h3>
+          <h3 className="text-4xl font-bold text-white mb-4">Academic & Training</h3>
           <div className="w-16 h-1 bg-green-500 mx-auto rounded-full" />
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-8">
           {educationData.map((edu, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
               className="relative group p-8 rounded-[2rem] bg-white/5 border border-white/10 hover:border-green-500/30 transition-all shadow-2xl overflow-hidden"
             >
-              {/* Decorative Icon */}
               <div className="absolute -right-8 -top-8 text-white/5 group-hover:text-green-500/10 transition-colors">
-                <GraduationCap size={200} />
+                {edu.type === "Academic" ? <GraduationCap size={200} /> : <Award size={200} />}
               </div>
 
               <div className="relative z-10">
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
                   <div className="p-3 bg-green-500/10 rounded-2xl text-green-500">
-                    <GraduationCap size={32} />
+                    {edu.type === "Academic" ? <GraduationCap size={32} /> : <Code2 size={32} />}
                   </div>
-                  <span className="px-4 py-1 bg-green-500 text-black text-xs font-bold rounded-full uppercase tracking-tighter">
+                  <span className="px-4 py-1 bg-green-500 text-black text-[10px] font-bold rounded-full uppercase tracking-tighter">
                     {edu.period}
                   </span>
                 </div>
@@ -62,9 +70,26 @@ const Education = () => {
                   <BookOpen size={18} className="text-green-500" /> {edu.institution}
                 </p>
 
+                {/* Progress Bar for Programming Hero */}
+                {edu.progress && (
+                  <div className="mb-6">
+                    <div className="flex justify-between text-xs text-gray-400 mb-2">
+                      <span>Course Completion</span>
+                      <span className="text-green-500 font-bold">{edu.progress}%</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${edu.progress}%` }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                        className="h-full bg-green-500 shadow-[0_0_10px_#22c55e]"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
                   <span className="flex items-center gap-1.5"><MapPin size={16} /> {edu.location}</span>
-                  <span className="flex items-center gap-1.5"><Calendar size={16} /> Enrolled 2021</span>
                 </div>
 
                 <p className="text-gray-400 leading-relaxed mb-8 max-w-2xl">

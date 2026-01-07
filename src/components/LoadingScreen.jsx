@@ -3,13 +3,26 @@ import { motion } from 'framer-motion'
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0)
+  const [welcomeText, setWelcomeText] = useState("Initializing...")
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setProgress((prev) => (prev < 100 ? prev + 1 : 100))
-    }, 25)
-    return () => clearInterval(interval)
-  }, [])
+      setProgress((prev) => {
+        if (prev < 100) return prev + 1;
+        return 100;
+      });
+    }, 25);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Progress onujayi dynamic message change
+  useEffect(() => {
+    if (progress < 30) setWelcomeText("Loading Assets...");
+    else if (progress < 60) setWelcomeText("Building Portfolio...");
+    else if (progress < 90) setWelcomeText("Metropolitan University CSE Student...");
+    else setWelcomeText("Welcome to Emon's World");
+  }, [progress]);
 
   const firstName = "MAHMUDUL"
   const lastName = "HASAN"
@@ -22,16 +35,27 @@ const LoadingScreen = () => {
         y: "-100vh",
         transition: { duration: 1, ease: [0.9, 0, 0.1, 1] } 
       }}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030014] overflow-hidden"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030014] overflow-hidden px-4"
     >
-      {/* Dynamic Colorful Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[120px] rounded-full animate-pulse" />
+      {/* Background Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-green-500/10 blur-[120px] rounded-full animate-pulse" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[120px] rounded-full" />
 
-      <div className="relative z-10 flex flex-col items-center">
-        {/* Animated Name with Gradient Effect */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="flex space-x-2 overflow-hidden">
+      <div className="relative z-10 flex flex-col items-center w-full max-w-md">
+        
+        {/* Welcome Message Above Name */}
+        <motion.p
+          key={welcomeText}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-green-500/60 font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4 text-center"
+        >
+          {welcomeText}
+        </motion.p>
+
+        {/* Name Section */}
+        <div className="flex flex-col items-center mb-8 w-full">
+          <div className="flex flex-wrap justify-center gap-x-1 md:gap-x-2 overflow-hidden text-center">
             {`${firstName} ${lastName}`.split("").map((char, index) => (
               <motion.span
                 key={index}
@@ -42,7 +66,7 @@ const LoadingScreen = () => {
                   delay: index * 0.04,
                   ease: [0.33, 1, 0.68, 1]
                 }}
-                className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 tracking-tighter"
+                className="text-2xl sm:text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 tracking-tighter inline-block"
               >
                 {char === " " ? "\u00A0" : char}
               </motion.span>
@@ -53,46 +77,41 @@ const LoadingScreen = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-black tracking-[0.2em] text-primary drop-shadow-[0_0_15px_rgba(34,197,94,0.5)] italic mt-2"
+            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-[0.1em] md:tracking-[0.2em] text-green-500 drop-shadow-[0_0_15px_rgba(34,197,94,0.5)] italic mt-2"
           >
             {nickName}
           </motion.span>
         </div>
 
-        {/* Professional Colorful Progress Bar */}
-        <div className="relative w-72 h-[3px] bg-white/5 overflow-hidden rounded-full border border-white/10">
+        {/* Progress Bar Container */}
+        <div className="relative w-64 md:w-72 h-[3px] bg-white/5 overflow-hidden rounded-full border border-white/10">
           <motion.div 
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
-            className="absolute h-full bg-gradient-to-r from-blue-500 via-primary to-emerald-400"
+            className="absolute h-full bg-gradient-to-r from-blue-500 via-green-500 to-emerald-400"
             style={{ boxShadow: '0 0 20px rgba(34, 197, 94, 0.8)' }}
           />
         </div>
 
-        {/* Stats & Status */}
+        {/* Progress % & Dynamic Subtext */}
         <div className="mt-6 flex flex-col items-center gap-2">
           <div className="flex items-center gap-3">
-            <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-primary/50" />
-            <span className="text-primary font-mono text-lg font-bold tracking-widest">
+            <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-green-500/50" />
+            <span className="text-green-500 font-mono text-lg font-bold tracking-widest">
               {progress}%
             </span>
-            <span className="h-[1px] w-8 bg-gradient-to-l from-transparent to-primary/50" />
+            <span className="h-[1px] w-8 bg-gradient-to-l from-transparent to-green-500/50" />
           </div>
           
-          <motion.p
-            animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="text-white/30 text-[10px] uppercase tracking-[0.5em] font-medium"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+            className="text-white/40 text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-medium text-center"
           >
-            Setting up your experience
-          </motion.p>
+             System Ready — <span className="text-green-500/50">MAHASAN-2026.SYS</span>
+          </motion.div>
         </div>
-      </div>
-
-      {/* Decorative Lines */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-white to-transparent" />
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-white to-transparent" />
       </div>
     </motion.div>
   )

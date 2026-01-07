@@ -5,11 +5,52 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* DELETE: scroll-behavior: smooth; (Lenis er shathe eita thaka jabe na) */
+    overflow-x: hidden;
   }
   
+  /* Lenis smooth scroll er jonno essential styles */
+  html.lenis {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
   body {
     font-family: 'Poppins', sans-serif;
+    @apply bg-[#020617] text-white overflow-x-hidden;
+  }
+
+  /* Custom Scrollbar for Chrome/Safari */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #020617;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #22c55e;
   }
 }
 
@@ -20,7 +61,7 @@
   
   .nav-link::after {
     content: '';
-    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300;
   }
   
   .nav-link:hover::after,
@@ -29,10 +70,10 @@
   }
   
   .skill-card {
-    @apply transition-all duration-300;
+    @apply transition-all duration-300 bg-white/5 border border-white/10;
   }
   
   .skill-card:hover {
-    @apply -translate-y-1 shadow-lg shadow-primary/30;
+    @apply -translate-y-1 shadow-lg shadow-green-500/20 border-green-500/30;
   }
 }

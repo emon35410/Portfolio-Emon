@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Lenis from '@studio-freight/lenis'
+
+// Components
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
+import Education from './components/Education'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
@@ -10,55 +14,73 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import CustomCursor from './components/CustomCursor'
-import Education from './components/Education'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // 1. Optimized Lenis Setup
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      lerp: 0.1, // Eta add koray scroll arektu responsive hobe
+      wheelMultiplier: 1,
+      infinite: false,
+    })
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+
+    // 2. Loading Timer
     const timer = setTimeout(() => {
       setIsLoading(false)
     }, 2500)
-    return () => clearTimeout(timer)
+
+    // Cleanup
+    return () => {
+      clearTimeout(timer)
+      lenis.destroy()
+    }
   }, [])
 
   return (
-    <div className="relative bg-[#020617] text-white font-body overflow-x-hidden min-h-screen">
+    <div className="relative bg-[#020617] text-white font-body selection:bg-green-500/30 selection:text-green-400 min-h-screen">
       
-      {/* 1. Custom Animated Cursor */}
+      {/* 1. Global Utilities */}
       <CustomCursor />
+      <ScrollToTop />
       
-      {/* 2. Fixed Navbar (Scale Logic er baire rakha hoyeche jeno fixed thake) */}
+      {/* 2. Fixed Navbar */}
       {!isLoading && <Navbar />}
       
-      {/* 3. Animated Background Layer */}
+      {/* 3. Global Animated Background Layer */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <motion.div 
           animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.2, 1],
+            x: [0, 80, 0],
+            y: [0, 40, 0],
+            scale: [1, 1.1, 1],
           }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-green-500/20 blur-[100px] rounded-full"
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-5%] left-[-5%] w-[40vw] h-[40vw] bg-green-500/10 blur-[120px] rounded-full"
         />
         
         <motion.div 
           animate={{
-            x: [0, -100, 0],
-            y: [0, -50, 0],
-            scale: [1.2, 1, 1.2],
+            x: [0, -80, 0],
+            y: [0, -40, 0],
+            scale: [1.1, 1, 1.1],
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/20 blur-[120px] rounded-full"
-        />
-
-        <motion.div 
-          animate={{
-            opacity: [0.1, 0.3, 0.1],
-          }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-green-500/5 via-transparent to-blue-500/5"
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[-5%] right-[-5%] w-[50vw] h-[50vw] bg-blue-600/10 blur-[150px] rounded-full"
         />
       </div>
 
@@ -67,22 +89,28 @@ function App() {
         {isLoading && <LoadingScreen key="loader" />}
       </AnimatePresence>
 
-      {/* 5. Main Website Content */}
+      {/* 5. Main Site Layout */}
       <div 
-        className={`relative z-10 transition-all duration-1000 ${
-          isLoading ? 'h-screen overflow-hidden scale-95 opacity-0 blur-lg' : 'opacity-100 scale-100 blur-0'
+        className={`relative z-10 transition-all duration-1000 ease-out ${
+          isLoading 
+            ? 'h-screen overflow-hidden scale-[0.98] opacity-0 blur-xl' 
+            : 'opacity-100 scale-100 blur-0'
         }`}
       >
-        <main className="relative pt-16">
+        <main className="relative">
           <section id="home"><Hero /></section>
-          <section id="about"><About /></section>
-          <section id="skills"><Skills /></section>
-          <section id="projects"><Projects /></section>
-          <section id="education"><Education /></section>
-          <section id="contact"><Contact /></section>
+          
+          {/* Content Wrapper for better spacing */}
+          <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-24 md:space-y-32 py-10">
+            <section id="about"><About /></section>
+            <section id="skills"><Skills /></section>
+            <section id="projects"><Projects /></section>
+            <section id="education"><Education /></section>
+            <section id="contact"><Contact /></section>
+          </div>
         </main>
+        
         <Footer />
-        <ScrollToTop />
       </div>
     </div>
   )
