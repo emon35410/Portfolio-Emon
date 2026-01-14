@@ -25,7 +25,7 @@ const Education = () => {
   ]
 
   return (
-    <section id="education" className="py-24 relative overflow-hidden">
+    <section id="education" className="py-14 relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-500/5 blur-[120px] -z-10" />
 
       <div className="max-w-7xl mx-auto px-6">

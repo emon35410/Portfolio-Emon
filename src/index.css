@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    /* DELETE: scroll-behavior: smooth; (Lenis er shathe eita thaka jabe na) */
     overflow-x: hidden;
   }
   
-  /* Lenis smooth scroll er jonno essential styles */
+  /* Lenis essential styles */
   html.lenis {
     height: auto;
   }
@@ -22,22 +22,17 @@
     overscroll-behavior: contain;
   }
 
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-
-  .lenis.lenis-scrolling iframe {
-    pointer-events: none;
-  }
-
   body {
-    font-family: 'Poppins', sans-serif;
-    @apply bg-[#020617] text-white overflow-x-hidden;
+    /* Font change kora holo */
+    font-family: 'Inter', sans-serif;
+    @apply bg-[#020617] text-[#e2e8f0] overflow-x-hidden; /* Text color ektu off-white kora holo eye comfort er jonno */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom Scrollbar for Chrome/Safari */
+  /* Custom Scrollbar - Ektuo dark kora holo jate focus disturb na hoy */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -74,6 +69,6 @@
   }
   
   .skill-card:hover {
-    @apply -translate-y-1 shadow-lg shadow-green-500/20 border-green-500/30;
+    @apply -translate-y-1 shadow-lg shadow-green-500/10 border-green-500/30;
   }
 }

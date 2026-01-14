@@ -14,6 +14,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingScreen from './components/LoadingScreen'
 import CustomCursor from './components/CustomCursor'
+import Experience from './components/Experience'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -103,6 +104,7 @@ function App() {
           {/* Content Wrapper for better spacing */}
           <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-24 md:space-y-32 py-10">
             <section id="about"><About /></section>
+            <section id="experience"><Experience /></section>
             <section id="skills"><Skills /></section>
             <section id="projects"><Projects /></section>
             <section id="education"><Education /></section>

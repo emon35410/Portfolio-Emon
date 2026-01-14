@@ -52,7 +52,7 @@ const Projects = () => {
 
   return (
     // bg-surface ke change kore bg-slate-900/20 dewa hoyeche
-    <section id="projects" className="py-24 bg-slate-900/20 relative overflow-hidden" ref={ref}>
+    <section id="projects" className="py-14 bg-slate-900/20 relative overflow-hidden" ref={ref}>
       
       {/* Background Glow */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 blur-[120px] -z-10" />
