@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
-import { Download, ArrowRight } from 'lucide-react'
+import { Download, ArrowRight, FileText } from 'lucide-react'
 
 // --- Typewriter Sub-Component ---
 const Typewriter = ({ texts }) => {
@@ -43,7 +43,7 @@ const Hero = () => {
     <section id="home" className="min-h-screen flex items-center pt-28 md:pt-25 pb-12 bg-transparent overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         
-        {/* Text Content */}
+        {/* Text Content Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,25 +108,39 @@ const Hero = () => {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="flex gap-4 flex-wrap"
           >
+            {/* Contact Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleContactClick}
-              className="bg-green-500 px-8 py-4 rounded-xl text-black text-sm font-bold hover:bg-green-400 transition-all flex items-center gap-2 shadow-[0_10px_20px_rgba(34,197,94,0.2)]"
+              className="bg-green-500 px-6 py-3.5 rounded-xl text-black text-sm font-bold hover:bg-green-400 transition-all flex items-center gap-2 shadow-[0_10px_20px_rgba(34,197,94,0.2)]"
             >
               Contact Me
               <ArrowRight size={16} />
             </motion.button>
             
+            {/* Resume Button */}
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/resume.pdf"
-              download
-              className="border border-white/10 text-white px-8 py-4 rounded-xl text-sm font-bold hover:border-green-500/50 hover:bg-green-500/5 transition-all flex items-center gap-2"
+              href="/MAHMUDUL_HASAN_EMON.pdf" 
+              download="MAHMUDUL_HASAN_EMON.pdf" 
+              className="border border-white/10 text-white px-6 py-3.5 rounded-xl text-sm font-bold hover:border-green-500/50 hover:bg-green-500/5 transition-all flex items-center gap-2"
             >
               <Download size={16} />
               Resume
+            </motion.a>
+
+            {/* CV Download Button */}
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="/cv.pdf" 
+              download="Emon_CV.pdf"
+              className="border border-white/10 text-white px-6 py-3.5 rounded-xl text-sm font-bold hover:border-green-500/50 hover:bg-green-500/5 transition-all flex items-center gap-2"
+            >
+              <FileText size={16} />
+              Download CV
             </motion.a>
           </motion.div>
         </motion.div>
@@ -139,10 +153,8 @@ const Hero = () => {
           className="flex justify-center md:justify-end order-1 md:order-2 relative"
         >
           <div className="relative group">
-            {/* Background Glow */}
             <div className="absolute -inset-10 rounded-full bg-green-500/10 blur-[100px] pointer-events-none" />
 
-            {/* Image Container */}
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -156,7 +168,6 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
             </motion.div>
 
-            {/* Floating Badge */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -173,4 +184,4 @@ const Hero = () => {
   )
 }
 
-export default Hero
+export default Hero;
