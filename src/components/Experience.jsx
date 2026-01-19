@@ -5,7 +5,6 @@ const Experience = () => {
   const points = [
     { text: "Resolved actual billing errors.", icon: FileSearch },
     { text: "Managed medical files with 100% integrity.", icon: Database },
-    { text: "Adapted to daily system updates.", icon: Zap },
     { text: "Optimized record management.", icon: CheckCircle2 }
   ]
 
@@ -15,7 +14,7 @@ const Experience = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-500/10 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
-        {/* Title Section - (Apnar original style rakha hoyeche) */}
+        {/* Title Section  */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +54,7 @@ const Experience = () => {
             </div>
 
             {/* Feature Grid - Aro choto ar clean kora hoyeche */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 border-t border-white/5 pt-8">
+            <div className="grid  gap-4 mt-8 border-t border-white/5 pt-8">
               {points.map((item, index) => (
                 <motion.div 
                   key={index}
