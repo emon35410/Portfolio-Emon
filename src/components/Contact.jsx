@@ -86,7 +86,7 @@ const Contact = () => {
                   <CheckCircle2 size={48} />
                 </div>
                 <h4 className="text-2xl font-bold text-white">Message Sent!</h4>
-                <p className="text-slate-400">Thanks for reaching out, I'll get back to you soon.</p>
+                <p className="text-slate-400">Thanks for reaching out, {"I'll get back to you as soon as possible."}</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
