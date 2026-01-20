@@ -32,7 +32,7 @@ const About = () => {
       <div className="max-w-5xl mx-auto px-6">
         {/* Section Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 30 }} // Added y: 30 for fade up
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -44,8 +44,8 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 mb-20">
           {/* Programming Journey & Personality */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30, x: -30 }} // Added y: 30 for fade up
+            animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
@@ -59,11 +59,10 @@ const About = () => {
           </motion.div>
 
           {/* Hobbies & Interests */}
-          {/* Hobbies & Interests */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, y: 30, x: 30 }}
+            animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
+            transition={{ duration: 1.0, delay: 0.6 }}
             className="bg-white/5 p-8 rounded-3xl border border-white/10"
           >
             <h4 className="text-2xl font-semibold mb-6 flex items-center gap-2 text-white">
@@ -79,7 +78,7 @@ const About = () => {
                 <div>
                   <h5 className="font-bold text-white">Football Enthusiast</h5>
                   <p className="text-white/60 text-sm leading-relaxed">
-                    The teamwork and strategy on the field fascinate me. Whether playing or watching, it's my go-to way to stay energetic.
+                    The teamwork and strategy on the field fascinate me. Whether playing or watching, it&apos;s my go-to way to stay energetic.
                   </p>
                 </div>
               </div>
@@ -110,7 +109,7 @@ const About = () => {
                 key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: service.delay + 0.6 }}
+                transition={{ duration: 1.0, delay: service.delay + 0.6 }}
                 whileHover={{
                   y: -10,
                   borderColor: 'rgba(var(--primary-rgb), 0.5)',

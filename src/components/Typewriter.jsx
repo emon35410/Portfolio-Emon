@@ -1,29 +1,44 @@
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Typewriter = ({ texts }) => {
-  const textIndex = useMotionValue(0);
-  const baseText = useTransform(textIndex, (latest) => texts[latest % texts.length] || "");
+  const [index, setIndex] = useState(0);
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
-  const displayText = useTransform(rounded, (latest) => baseText.get().slice(0, latest));
+  const displayText = useTransform(rounded, (latest) => 
+    texts[index].slice(0, latest)
+  );
 
   useEffect(() => {
-    const controls = animate(count, 60, {
+    const controls = animate(count, texts[index].length, {
       type: "tween",
-      duration: 3,
-      ease: "linear",
+      duration: 1.5,
+      ease: "easeInOut",
       repeat: Infinity,
       repeatType: "reverse",
-      repeatDelay: 1,
+      repeatDelay: 1.5,
       onUpdate: (latest) => {
         if (latest === 0) {
-          textIndex.set((textIndex.get() + 1) % texts.length);
+          setIndex((prev) => (prev + 1) % texts.length);
         }
       },
     });
-    return controls.stop;
-  }, []);
 
-  return <motion.span>{displayText}</motion.span>;
+    return controls.stop;
+  }, [index, texts, count]);
+
+  return (
+    <span className="inline-flex items-baseline">
+      <motion.span className="text-green-500 font-bold">
+        {displayText}
+      </motion.span>
+      <motion.span
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+        className="inline-block w-[3px] h-[1em] bg-green-500 ml-1 shadow-[0_0_10px_#22c55e] translate-y-[10%]"
+      />
+    </span>
+  );
 };
+
+export default Typewriter;

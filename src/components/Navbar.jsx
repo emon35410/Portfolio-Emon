@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Menu, X, Home, User, Briefcase,
   Code2, GraduationCap, MessageSquare,
-  History 
+  History, 
+  Award
 } from 'lucide-react'
 
 // navItems list
@@ -14,6 +15,7 @@ const navItems = [
   { href: '#skills', label: 'Skills', icon: Code2 },
   { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#education', label: 'Education', icon: GraduationCap },
+  { href: '#recognitions', label: 'Recognitions', icon: Award }, 
   { href: '#contact', label: 'Contact', icon: MessageSquare }
 ]
 
