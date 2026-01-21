@@ -6,6 +6,7 @@ import {
   History, 
   Award
 } from 'lucide-react'
+import Emon_logo from '../assets/Emon-logo.webp'
 
 // navItems list
 const navItems = [
@@ -81,7 +82,7 @@ const Navbar = () => {
           className="flex items-center gap-3 cursor-pointer group"
         >
           <img
-            src="https://i.ibb.co.com/p6qj5mHp/Gemini-Generated-Image-klz7b7klz7b7klz7.png"
+            src={Emon_logo}
             alt="Logo"
             className="w-10 h-10 object-contain rounded-lg shadow-lg shadow-green-500/20"
           />

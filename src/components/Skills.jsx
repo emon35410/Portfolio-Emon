@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { 
-  SiHtml5, SiCss3, SiTailwindcss, SiJavascript, 
+import {
+  SiHtml5, SiCss3, SiTailwindcss, SiJavascript,
   SiReact, SiNextdotjs, SiExpress, SiMongodb, SiNodedotjs,
-  SiFigma, SiPostman, 
+  SiFigma, SiPostman,
   SiZap
 } from 'react-icons/si'
 import { FaGitAlt, FaGithub } from 'react-icons/fa'
@@ -39,6 +39,7 @@ const Skills = () => {
     { name: 'Netlify', icon: BiLogoNetlify, color: 'text-[#00C7B7]' },
     { name: 'Vercel', icon: IoLogoVercel, color: 'text-white' }
   ]
+  const allSkills = [...frontendSkills, ...backendSkills, ...tools];
 
   const SkillCard = ({ skill, index }) => {
     const Icon = skill.icon
@@ -46,8 +47,8 @@ const Skills = () => {
       <motion.div
         initial={{ opacity: 0, y: 30 }} // FADE UP: Start state
         animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ 
-          duration: 0.6, 
+        transition={{
+          duration: 0.6,
           delay: index * 0.1, // STAGGER: Items appear one by one
           ease: "easeOut"
         }}
@@ -90,7 +91,7 @@ const Skills = () => {
         </motion.div>
 
         <div className="mb-12">
-          <motion.h4 
+          <motion.h4
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -104,7 +105,7 @@ const Skills = () => {
         </div>
 
         <div className="mb-20">
-          <motion.h4 
+          <motion.h4
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -116,10 +117,44 @@ const Skills = () => {
             {backendSkills.map((skill, index) => <SkillCard key={skill.name} skill={skill} index={index} />)}
           </div>
         </div>
+        {/* --- INFINITE SKILLS MARQUEE --- */}
+        <div className="relative py-10 border-y border-white/5 bg-white/[0.005] overflow-hidden group">
+          {/* Smooth Side Fades: Eye comfort-er jonno edges gulo arektu beshi soft kora hoyeche */}
+          <div className="overflow-hidden flex">
+            <motion.div
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{
+                ease: "linear",
+                duration: 20, 
+                repeat: Infinity
+              }}
+              className="flex whitespace-nowrap gap-24 items-center"
+            >
+              {[...allSkills, ...allSkills].map((skill, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-5 group/item cursor-default"
+                >
+                  {/* Icon Container with subtle border hover */}
+                  <div className="relative p-3 rounded-xl border border-transparent group-hover/item:border-white/10 group-hover/item:bg-white/[0.02] transition-all duration-700">
+                    <skill.icon
+                      className={`text-5xl ${skill.color} grayscale opacity-20 group-hover/item:grayscale-0 group-hover/item:opacity-100 group-hover/item:scale-105 transition-all duration-1000 ease-in-out`}
+                    />
+                    {/* Soft Glow Effect */}
+                    <div className={`absolute inset-0 blur-2xl ${skill.color} opacity-0 group-hover/item:opacity-10 transition-opacity duration-1000`} />
+                  </div>
 
+                  <span className="text-white/10 group-hover/item:text-white/60 text-sm font-bold tracking-[0.2em] uppercase italic transition-all duration-700">
+                    {skill.name}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
         {/* Tools Section - SCALE & FADE */}
         <div className="text-center pt-10 border-t border-white/5">
-          <motion.h4 
+          <motion.h4
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.6 }}
@@ -135,11 +170,11 @@ const Skills = () => {
                   key={tool.name}
                   initial={{ opacity: 0, scale: 0.5, y: 20 }} // Added y: 20 for extra fade up
                   animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 260, 
-                    damping: 20, 
-                    delay: index * 0.1 + 0.8 
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    delay: index * 0.1 + 0.8
                   }}
                   whileHover={{ scale: 1.2 }}
                   className="flex flex-col items-center gap-3 group"

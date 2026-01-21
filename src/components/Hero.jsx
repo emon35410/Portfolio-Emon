@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 import { Download, ArrowRight, FileText } from 'lucide-react'
+import Emon from '../assets/Emon.webp'
 
 // --- Typewriter Sub-Component ---
 const Typewriter = ({ texts }) => {
@@ -161,7 +162,7 @@ const Hero = () => {
               className="relative w-64 h-80 md:w-80 md:h-[460px] bg-white/5 rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl z-10"
             >
               <img
-                src="https://i.ibb.co.com/G3JMDvrj/Gemini-Generated-Image-16cb6f16cb6f16cb-1.png"
+                src={Emon}
                 alt="Emon Profile"
                 className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700"
               />
