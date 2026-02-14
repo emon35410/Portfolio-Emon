@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-// 1. Import Formspree hooks
 import { useForm, ValidationError } from '@formspree/react'
 import {
   Send, Mail, MapPin,
@@ -11,10 +10,8 @@ const Contact = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.1 })
   
-  // 2. Initialize Formspree hook
+  //  Formspree hook
   const [state, handleSubmit] = useForm(import.meta.env.VITE_FORMSPREE_KEY);
-
-  // Keep local state for the inputs so the UI stays responsive
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -49,7 +46,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-[#0a0f1a] relative overflow-hidden" ref={ref}>
+    <section id="contact" className="py-16 md:py-24  relative overflow-hidden" ref={ref}>
       <div className="absolute top-0 left-0 w-64 md:w-96 h-64 md:h-96 bg-green-500/10 blur-[100px] -z-10" />
       <div className="absolute bottom-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-blue-500/5 blur-[100px] -z-10" />
 

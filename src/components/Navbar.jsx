@@ -86,7 +86,7 @@ const Navbar = () => {
             alt="Logo"
             className="w-10 h-10 object-contain rounded-lg shadow-lg shadow-green-500/20"
           />
-          <span className="font-bold text-xl tracking-tight hidden sm:block">
+          <span className="font-bold text-xl italic tracking-tighter hidden sm:block">
             EMON<span className="text-green-500">.</span>
           </span>
         </motion.div>

@@ -14,11 +14,9 @@ const ScrollToTop = () => {
   }, [])
 
   const scrollToTop = () => {
-    // Jodi window.lenis thake (App.jsx theke), tobe oita use korbe
     if (window.lenis) {
-      window.lenis.scrollTo(0, { duration: 1.5 }) // 1.5 second dhore smooth glide korbe
+      window.lenis.scrollTo(0, { duration: 1.5 }) 
     } else {
-      // Fallback: Jodi kono karone lenis na pay
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }

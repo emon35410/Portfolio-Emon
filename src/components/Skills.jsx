@@ -15,18 +15,18 @@ const Skills = () => {
   const isInView = useInView(ref, { once: true, threshold: 0.1 })
 
   const frontendSkills = [
-    { name: 'HTML5', level: 90, icon: SiHtml5, color: 'text-[#E34F26]' },
-    { name: 'CSS3', level: 85, icon: SiCss3, color: 'text-[#1572B6]' },
-    { name: 'Tailwind CSS', level: 80, icon: SiTailwindcss, color: 'text-[#06B6D4]' },
-    { name: 'JavaScript', level: 75, icon: SiJavascript, color: 'text-[#F7DF1E]' },
-    { name: 'React', level: 70, icon: SiReact, color: 'text-[#61DAFB]' },
-    { name: 'Next.js', level: 60, icon: SiNextdotjs, color: 'text-white' },
+    { name: 'HTML5', level: 80, icon: SiHtml5, color: 'text-[#E34F26]' },
+    { name: 'CSS3', level: 75, icon: SiCss3, color: 'text-[#1572B6]' },
+    { name: 'Tailwind CSS', level: 70, icon: SiTailwindcss, color: 'text-[#06B6D4]' },
+    { name: 'JavaScript', level: 70, icon: SiJavascript, color: 'text-[#F7DF1E]' },
+    { name: 'React', level: 65, icon: SiReact, color: 'text-[#61DAFB]' },
+    { name: 'Next.js', level: 50, icon: SiNextdotjs, color: 'text-white' },
   ]
 
   const backendSkills = [
     { name: 'Node.js', level: 55, icon: SiNodedotjs, color: 'text-[#339933]' },
-    { name: 'MongoDB', level: 65, icon: SiMongodb, color: 'text-[#47A248]' },
-    { name: 'Express.js', level: 55, icon: SiExpress, color: 'text-gray-400' }
+    { name: 'MongoDB', level: 55, icon: SiMongodb, color: 'text-[#47A248]' },
+    { name: 'Express.js', level: 50, icon: SiExpress, color: 'text-gray-400' }
   ]
 
   const tools = [
@@ -119,7 +119,7 @@ const Skills = () => {
         </div>
         {/* --- INFINITE SKILLS MARQUEE --- */}
         <div className="relative py-10 border-y border-white/5 bg-white/[0.005] overflow-hidden group">
-          {/* Smooth Side Fades: Eye comfort-er jonno edges gulo arektu beshi soft kora hoyeche */}
+          {/* Smooth Side Fades */}
           <div className="overflow-hidden flex">
             <motion.div
               animate={{ x: ["0%", "-50%"] }}

@@ -29,7 +29,7 @@ function App() {
       gestureDirection: 'vertical',
       smooth: true,
       mouseMultiplier: 1,
-      lerp: 0.1, // Eta add koray scroll arektu responsive hobe
+      lerp: 0.1, 
       wheelMultiplier: 1,
       infinite: false,
     })
