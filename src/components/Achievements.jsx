@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, HeartPulse, Users,  Award, Microscope, ChevronLeft, ChevronRight, Layout, MicroscopeIcon } from 'lucide-react'
+import { Camera, HeartPulse, Users, Award, Microscope, ChevronLeft, ChevronRight, Layout } from 'lucide-react'
 
 // Asset imports
 import researchCert from '../assets/certificates/626.webp'
@@ -12,7 +12,6 @@ import webDevCert from '../assets/certificates/PH-12-certificate_page-0001.webp'
 import research360Cert from '../assets/certificates/Research_360_Degree.webp'
 
 const Achievements = () => {
-
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(3)
 
@@ -27,7 +26,7 @@ const Achievements = () => {
     {
       title: "Research 360°: A Complete Guide",
       provider: "Metropolitan University (MURS)",
-      icon: <MicroscopeIcon className="text-cyan-400" size={20} />,
+      icon: <Microscope className="text-cyan-400" size={20} />,
       image: research360Cert,
       desc: "Completed an intensive 5-day research workshop covering the end-to-end academic research process, from methodology selection to ethical considerations and scholarly writing."
     },
@@ -89,20 +88,20 @@ const Achievements = () => {
   }, [totalPages, currentPage])
 
   return (
-    <section id="achievements" className="py-14 relative ">
-      {/* Background elements */}
+    <section id="achievements" className="py-14 relative overflow-hidden bg-[#050505]">
+      {/* Background Glow */}
       <motion.div
-        animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-green-500/10 blur-[120px] rounded-full pointer-events-none"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[-20%] right-[-10%] w-[70%] h-[70%] bg-green-500/10 blur-[150px] rounded-full pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-5 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col items-center mb-16 text-center"
+          className="flex flex-col items-center mb-12 text-center"
         >
           <Award className="text-green-500 mb-4" size={28} />
           <h2 className="text-4xl md:text-5xl font-black text-white italic tracking-tighter">
@@ -110,44 +109,45 @@ const Achievements = () => {
           </h2>
         </motion.div>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[480px]">
+        {/* Grid Layout - Optimized for Mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 min-h-[500px]">
           <AnimatePresence mode="popLayout">
             {currentItems.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="group bg-white/[0.03] border border-white/10 rounded-[2.5rem] p-4 hover:bg-white/[0.06] hover:border-green-500/30 transition-all duration-500 backdrop-blur-md shadow-2xl"
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="group bg-white/[0.02] border border-white/10 rounded-[2rem] p-3 md:p-4 hover:bg-white/[0.05] hover:border-green-500/30 transition-all duration-500 backdrop-blur-xl shadow-xl flex flex-col h-full"
               >
-                <div
-                  className="relative h-56 rounded-3xl overflow-hidden cursor-pointer mb-6 border border-white/5"
-                >
+                {/* Image Containers */}
+                <div className="relative aspect-[4/3] md:h-52 rounded-2xl overflow-hidden cursor-pointer mb-5 border border-white/5 shadow-lg">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover brightness-100 contrast-100 group-hover:brightness-80 group-hover:scale-110 transition-all duration-700"
+                    className="w-full h-full object-cover object-top md:object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-all duration-700" />
+                  {/* Soft Vignette for better contrast */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 opacity-60" />
                 </div>
 
-                <div className="px-3 pb-2">
+                <div className="px-2 flex flex-col flex-grow">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="p-2 bg-white/10 rounded-xl border border-white/10 shadow-inner">
+                    <div className="p-2 bg-white/5 rounded-lg border border-white/10">
                       {item.icon}
                     </div>
-                    <p className="text-[11px] font-bold text-green-400/80 uppercase tracking-[0.2em]">
+                    <p className="text-[10px] font-bold text-green-400/70 uppercase tracking-widest leading-none">
                       {item.provider}
                     </p>
                   </div>
 
-                  <h3 className="text-xl font-extrabold text-white mb-2 group-hover:text-green-400 transition-colors leading-tight drop-shadow-md">
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors duration-300 leading-snug">
                     {item.title}
                   </h3>
 
-                  <p className="text-gray-300 text-sm leading-relaxed font-medium opacity-90 line-clamp-3">
+                  <p className="text-gray-400 text-sm leading-relaxed opacity-80 line-clamp-4 md:line-clamp-3 mb-4">
                     {item.desc}
                   </p>
                 </div>
@@ -156,31 +156,35 @@ const Achievements = () => {
           </AnimatePresence>
         </div>
 
-        {/* Pagination Controls */}
+        {/* Pagination - Mobile Friendly Tap Areas */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-6 mt-12">
+          <div className="flex justify-center items-center gap-4 md:gap-8 mt-12 pb-4">
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="p-3 rounded-full bg-white/5 border border-white/10 text-white disabled:opacity-20 hover:bg-green-500/20 transition-all"
+              className="p-4 rounded-full bg-white/5 border border-white/10 text-white disabled:opacity-20 hover:bg-green-500/20 active:scale-90 transition-all"
+              aria-label="Previous Page"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={20} />
             </button>
-            <div className="flex gap-2">
+            
+            <div className="flex gap-2.5">
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${currentPage === i + 1 ? 'w-8 bg-green-500' : 'w-2 bg-white/20'}`}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${currentPage === i + 1 ? 'w-10 bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' : 'w-2 bg-white/20'}`}
                 />
               ))}
             </div>
+
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="p-3 rounded-full bg-white/5 border border-white/10 text-white disabled:opacity-20 hover:bg-green-500/20 transition-all"
+              className="p-4 rounded-full bg-white/5 border border-white/10 text-white disabled:opacity-20 hover:bg-green-500/20 active:scale-90 transition-all"
+              aria-label="Next Page"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={20} />
             </button>
           </div>
         )}
