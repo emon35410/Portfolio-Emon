@@ -77,8 +77,8 @@ const Skills = () => {
   }
 
   return (
-    <section id="skills" className="py-14 bg-surface/20" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="skills" className="py-14 " ref={ref}>
+      <div className="max-w-6xl mx-auto px-3">
         {/* Section Heading - FADE UP */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

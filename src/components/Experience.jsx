@@ -13,7 +13,7 @@ const Experience = () => {
       {/* Background Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-2">
         {/* Title Section - FADE UP ADDED */}
         <motion.div
           initial={{ opacity: 0, y: 30 }} // Start 30px down

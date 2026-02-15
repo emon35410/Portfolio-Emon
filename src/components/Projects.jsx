@@ -63,12 +63,12 @@ const Projects = () => {
   }
 
   return (
-    <section id="projects" className="py-10 bg-slate-900/20 relative overflow-hidden" ref={ref}>
+    <section id="projects" className="py-10 relative overflow-hidden" ref={ref}>
       
       {/* Background Glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/5 blur-[120px] -z-10" />
       
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-3">
         {/* Header - Fades up independently */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

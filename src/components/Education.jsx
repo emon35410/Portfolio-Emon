@@ -73,7 +73,7 @@ const Education = () => {
             <motion.div
               key={index}
               variants={cardVariants}
-              className="relative group p-8 rounded-[2.5rem] bg-[#0f172a]/40 backdrop-blur-xl border border-white/5 hover:border-green-500/30 transition-all duration-500 shadow-2xl overflow-hidden"
+              className="relative group p-5 rounded-[2.5rem] bg-[#0f172a]/40 backdrop-blur-xl border border-white/5 hover:border-green-500/30 transition-all duration-500 shadow-2xl overflow-hidden"
             >
               {/* Background Icon Decoration */}
               <div className="absolute -right-8 -top-8 text-white/5 group-hover:text-green-500/10 transition-all duration-700 group-hover:rotate-12">
