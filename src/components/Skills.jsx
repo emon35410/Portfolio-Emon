@@ -125,26 +125,27 @@ const Skills = () => {
               animate={{ x: ["0%", "-50%"] }}
               transition={{
                 ease: "linear",
-                duration: 20, 
+                duration: 25, 
                 repeat: Infinity
               }}
-              className="flex whitespace-nowrap gap-24 items-center"
+              className="flex whitespace-nowrap gap-24 items-center py-4"
             >
               {[...allSkills, ...allSkills].map((skill, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-5 group/item cursor-default"
                 >
-                  {/* Icon Container with subtle border hover */}
-                  <div className="relative p-3 rounded-xl border border-transparent group-hover/item:border-white/10 group-hover/item:bg-white/[0.02] transition-all duration-700">
+                  {/* Icon Container */}
+                  <div className="relative p-3 rounded-xl border border-white/5 bg-white/[0.01] group-hover/item:border-white/20 group-hover/item:bg-white/[0.05] transition-all duration-500">
                     <skill.icon
-                      className={`text-5xl ${skill.color} grayscale opacity-20 group-hover/item:grayscale-0 group-hover/item:opacity-100 group-hover/item:scale-105 transition-all duration-1000 ease-in-out`}
+                      className={`text-5xl ${skill.color} 
+              grayscale-[0.4] opacity-40 
+              group-hover/item:grayscale-0 group-hover/item:opacity-100 group-hover/item:scale-110 
+              transition-all duration-700 ease-in-out`}
                     />
-                    {/* Soft Glow Effect */}
-                    <div className={`absolute inset-0 blur-2xl ${skill.color} opacity-0 group-hover/item:opacity-10 transition-opacity duration-1000`} />
+                    <div className={`absolute inset-0 blur-3xl ${skill.color} opacity-0 group-hover/item:opacity-20 transition-opacity duration-700`} />
                   </div>
-
-                  <span className="text-white/10 group-hover/item:text-white/60 text-sm font-bold tracking-[0.2em] uppercase italic transition-all duration-700">
+                  <span className="text-white/30 group-hover/item:text-primary text-sm font-bold tracking-[0.2em] uppercase italic transition-all duration-500">
                     {skill.name}
                   </span>
                 </div>
