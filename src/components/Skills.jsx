@@ -3,8 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import {
   SiHtml5, SiCss3, SiTailwindcss, SiJavascript,
   SiReact, SiNextdotjs, SiExpress, SiMongodb, SiNodedotjs,
-  SiFigma, SiPostman,
-  SiZap
+  SiFigma, SiPostman, SiZap
 } from 'react-icons/si'
 import { FaGitAlt, FaGithub } from 'react-icons/fa'
 import { BiLogoNetlify, BiLogoVisualStudio } from 'react-icons/bi'
@@ -15,18 +14,18 @@ const Skills = () => {
   const isInView = useInView(ref, { once: true, threshold: 0.1 })
 
   const frontendSkills = [
-    { name: 'HTML5', level: 80, icon: SiHtml5, color: 'text-[#E34F26]' },
-    { name: 'CSS3', level: 75, icon: SiCss3, color: 'text-[#1572B6]' },
-    { name: 'Tailwind CSS', level: 70, icon: SiTailwindcss, color: 'text-[#06B6D4]' },
-    { name: 'JavaScript', level: 70, icon: SiJavascript, color: 'text-[#F7DF1E]' },
-    { name: 'React', level: 65, icon: SiReact, color: 'text-[#61DAFB]' },
-    { name: 'Next.js', level: 50, icon: SiNextdotjs, color: 'text-white' },
+    { name: 'HTML5', icon: SiHtml5, color: 'text-[#E34F26]' },
+    { name: 'CSS3', icon: SiCss3, color: 'text-[#1572B6]' },
+    { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-[#06B6D4]' },
+    { name: 'JavaScript', icon: SiJavascript, color: 'text-[#F7DF1E]' },
+    { name: 'React', icon: SiReact, color: 'text-[#61DAFB]' },
+    { name: 'Next.js', icon: SiNextdotjs, color: 'text-white' },
   ]
 
   const backendSkills = [
-    { name: 'Node.js', level: 55, icon: SiNodedotjs, color: 'text-[#339933]' },
-    { name: 'MongoDB', level: 55, icon: SiMongodb, color: 'text-[#47A248]' },
-    { name: 'Express.js', level: 50, icon: SiExpress, color: 'text-gray-400' }
+    { name: 'Node.js', icon: SiNodedotjs, color: 'text-[#339933]' },
+    { name: 'MongoDB', icon: SiMongodb, color: 'text-[#47A248]' },
+    { name: 'Express.js', icon: SiExpress, color: 'text-gray-400' }
   ]
 
   const tools = [
@@ -39,153 +38,100 @@ const Skills = () => {
     { name: 'Netlify', icon: BiLogoNetlify, color: 'text-[#00C7B7]' },
     { name: 'Vercel', icon: IoLogoVercel, color: 'text-white' }
   ]
+
   const allSkills = [...frontendSkills, ...backendSkills, ...tools];
 
+  // Modified SkillCard: Only Icon and Name
   const SkillCard = ({ skill, index }) => {
     const Icon = skill.icon
     return (
       <motion.div
-        initial={{ opacity: 0, y: 30 }} // FADE UP: Start state
+        initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{
-          duration: 0.6,
-          delay: index * 0.1, // STAGGER: Items appear one by one
+          duration: 0.5,
+          delay: index * 0.05,
           ease: "easeOut"
         }}
-        whileHover={{ y: -5 }}
-        className="bg-white/5 p-5 rounded-2xl border border-white/10 hover:border-primary/50 transition-all shadow-lg"
+        whileHover={{ y: -5, backgroundColor: "rgba(255, 255, 255, 0.08)" }}
+        className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-primary/50 transition-all flex items-center gap-4 group"
       >
-        <div className="flex items-center gap-4">
-          <div className={`text-3xl ${skill.color}`}><Icon /></div>
-          <div className="flex-1">
-            <div className="flex justify-between mb-1">
-              <span className="font-semibold text-white/90 text-sm">{skill.name}</span>
-              <span className="text-primary text-xs">{skill.level}%</span>
-            </div>
-            <div className="w-full bg-white/10 h-1 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={isInView ? { width: `${skill.level}%` } : {}}
-                transition={{ duration: 1.5, delay: 0.5 + (index * 0.1), ease: "circOut" }}
-                className="h-full bg-primary"
-              />
-            </div>
-          </div>
+        <div className={`text-3xl ${skill.color} transition-transform group-hover:scale-110 duration-300`}>
+          <Icon />
         </div>
+        <span className="font-medium text-white/80 text-sm tracking-wide">{skill.name}</span>
       </motion.div>
     )
   }
 
   return (
-    <section id="skills" className="py-14 " ref={ref}>
-      <div className="max-w-6xl mx-auto px-3">
-        {/* Section Heading - FADE UP */}
+    <section id="skills" className="py-20" ref={ref}>
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h3 className="text-3xl md:text-4xl font-bold italic text-white">Technical Expertise</h3>
-          <div className="w-20 h-1 bg-primary mx-auto mt-4 rounded-full shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]" />
+          <h3 className="text-3xl md:text-4xl font-bold italic text-white uppercase tracking-tighter">Technical Expertise</h3>
+          <div className="w-16 h-1 bg-primary mx-auto mt-4 rounded-full shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]" />
         </motion.div>
 
-        <div className="mb-12">
-          <motion.h4
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg font-medium mb-6 text-white/60 border-l-4 border-primary pl-4"
-          >
-            Frontend Development
-          </motion.h4>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Frontend Grid */}
+        <div className="mb-10">
+          <h4 className="text-sm font-semibold mb-6 text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">
+            Frontend
+          </h4>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {frontendSkills.map((skill, index) => <SkillCard key={skill.name} skill={skill} index={index} />)}
           </div>
         </div>
 
-        <div className="mb-20">
-          <motion.h4
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-lg font-medium mb-6 text-white/60 border-l-4 border-primary pl-4"
-          >
-            Backend & Database
-          </motion.h4>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Backend Grid */}
+        <div className="mb-16">
+          <h4 className="text-sm font-semibold mb-6 text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">
+            Backend & DB
+          </h4>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {backendSkills.map((skill, index) => <SkillCard key={skill.name} skill={skill} index={index} />)}
           </div>
         </div>
-        {/* --- INFINITE SKILLS MARQUEE --- */}
-        <div className="relative py-10 border-y border-white/5 bg-white/[0.005] overflow-hidden group">
-          {/* Smooth Side Fades */}
-          <div className="overflow-hidden flex">
+
+        {/* Infinite Marquee */}
+        <div className="relative py-12 border-y border-white/5 bg-white/[0.005] overflow-hidden mb-16">
+          <div className="flex">
             <motion.div
               animate={{ x: ["0%", "-50%"] }}
-              transition={{
-                ease: "linear",
-                duration: 25, 
-                repeat: Infinity
-              }}
-              className="flex whitespace-nowrap gap-24 items-center py-4"
+              transition={{ ease: "linear", duration: 25, repeat: Infinity }}
+              className="flex whitespace-nowrap gap-20 items-center"
             >
               {[...allSkills, ...allSkills].map((skill, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-5 group/item cursor-default"
-                >
-                  {/* Icon Container */}
-                  <div className="relative p-3 rounded-xl border border-white/5 bg-white/[0.01] group-hover/item:border-white/20 group-hover/item:bg-white/[0.05] transition-all duration-500">
-                    <skill.icon
-                      className={`text-5xl ${skill.color} 
-              grayscale-[0.4] opacity-40 
-              group-hover/item:grayscale-0 group-hover/item:opacity-100 group-hover/item:scale-110 
-              transition-all duration-700 ease-in-out`}
-                    />
-                    <div className={`absolute inset-0 blur-3xl ${skill.color} opacity-0 group-hover/item:opacity-20 transition-opacity duration-700`} />
-                  </div>
-                  <span className="text-white/30 group-hover/item:text-primary text-sm font-bold tracking-[0.2em] uppercase italic transition-all duration-500">
-                    {skill.name}
-                  </span>
+                <div key={index} className="flex items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+                  <skill.icon className={`text-4xl ${skill.color}`} />
+                  <span className="text-white text-xs font-bold tracking-widest uppercase italic">{skill.name}</span>
                 </div>
               ))}
             </motion.div>
           </div>
         </div>
-        {/* Tools Section - SCALE & FADE */}
-        <div className="text-center pt-10 border-t border-white/5">
-          <motion.h4
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.6 }}
-            className="text-sm font-semibold mb-10 text-white/40 tracking-[0.2em] uppercase"
-          >
-            Tools & Environment
-          </motion.h4>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+
+        {/* Tools Section */}
+        <div className="text-center">
+          <h4 className="text-[10px] font-bold mb-10 text-white/30 tracking-[0.4em] uppercase">Tools & Environment</h4>
+          <div className="flex flex-wrap justify-center gap-8">
             {tools.map((tool, index) => {
               const ToolIcon = tool.icon
               return (
                 <motion.div
                   key={tool.name}
-                  initial={{ opacity: 0, scale: 0.5, y: 20 }} // Added y: 20 for extra fade up
-                  animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
-                  transition={{
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 20,
-                    delay: index * 0.1 + 0.8
-                  }}
-                  whileHover={{ scale: 1.2 }}
-                  className="flex flex-col items-center gap-3 group"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: index * 0.05 + 0.5 }}
+                  className="group flex flex-col items-center gap-2"
                 >
-                  <div className={`text-4xl ${tool.color} opacity-70 group-hover:opacity-100 transition-all`}>
-                    <ToolIcon />
-                  </div>
-                  <span className="text-[10px] text-white/30 group-hover:text-white/80 transition-colors uppercase tracking-widest">
-                    {tool.name}
-                  </span>
+                  <ToolIcon className={`text-3xl ${tool.color} opacity-50 group-hover:opacity-100 transition-all`} />
+                  <span className="text-[9px] text-white/20 group-hover:text-white/60 tracking-widest uppercase">{tool.name}</span>
                 </motion.div>
               )
             })}

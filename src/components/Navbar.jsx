@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import Emon_logo from '../assets/Emon-logo.webp'
 
+
 // navItems list
 const navItems = [
   { href: '#home', label: 'Home', icon: Home },
@@ -83,6 +84,7 @@ const Navbar = () => {
         >
           <img
             src={Emon_logo}
+            
             alt="Logo"
             className="w-10 h-10 object-contain rounded-lg shadow-lg shadow-green-500/20"
           />
