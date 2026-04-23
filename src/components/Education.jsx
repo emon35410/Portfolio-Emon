@@ -9,18 +9,18 @@ const Education = () => {
       institution: "Metropolitan University, Sylhet",
       period: "2023 — Present (4th Year / 1st Semester)",
       location: "Sylhet, Bangladesh",
-      description: "Focusing on Software Engineering, Data Structures, and Web Technologies. Currently working on final year research/project.",
-      skills: ["Data Structures", "Algorithms", "DBMS", "Artificial Intelligence"]
+      description: "Focusing on Software Engineering, and Web Technologies. Currently working on final year Thesis/project.",
+      skills: ["Data Structures", "Algorithms", "DBMS", "Artificial Intelligence", "Machine Learning", "Software Engineering And Design Patterns","Web Programming"]
     },
     {
       type: "Certification",
       degree: "Complete Web Development (Level-1)",
       institution: "Programming Hero",
-      period: "Running (90% Completed)",
+      period: "Completed (95% Completed)",
       location: "Online (Jhankar Mahbub)",
       description: "Intensive training on MERN Stack (MongoDB, Express, React, Node.js). Working on various full-stack industry projects.",
-      skills: ["React.js", "Firebase", "Tailwind CSS", "Node.js","MongoDB"],
-      progress: 90 
+      skills: ["React.js", "Firebase", "Tailwind CSS", "Node.js","MongoDB", "Express.js"],
+      progress: 95 
     }
   ]
 
