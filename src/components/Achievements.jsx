@@ -147,7 +147,7 @@ const Achievements = () => {
                     {item.title}
                   </h3>
 
-                  <p className="text-gray-400 text-sm leading-relaxed opacity-80 line-clamp-4 md:line-clamp-3 mb-4">
+                  <p className="text-gray-400 text-sm leading-relaxed opacity-80  mb-4">
                     {item.desc}
                   </p>
                 </div>
