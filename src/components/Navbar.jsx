@@ -4,7 +4,8 @@ import {
   Menu, X, Home, User, Briefcase,
   Code2, GraduationCap, MessageSquare,
   History, 
-  Award
+  Award,
+  BookOpen
 } from 'lucide-react'
 import Emon_logo from '../assets/Emon-logo.webp'
 
@@ -17,6 +18,7 @@ const navItems = [
   { href: '#skills', label: 'Skills', icon: Code2 },
   { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#education', label: 'Education', icon: GraduationCap },
+  { href: '#publications', label: 'Publications', icon: BookOpen },
   { href: '#recognitions', label: 'Recognitions', icon: Award }, 
   { href: '#contact', label: 'Contact', icon: MessageSquare }
 ]

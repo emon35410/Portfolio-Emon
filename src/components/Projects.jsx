@@ -73,6 +73,38 @@ const Projects = () => {
       liveUrl: "https://luminous-tanuki-c653df.netlify.app/",
       githubUrl: "https://github.com/emon35410/Assignment-8.git",
     },
+    {
+      title: "MockFlow API",
+      category: "SaaS Product",
+      description:
+        "A developer-centric SaaS platform that allows users to instantly generate mock API endpoints from custom JSON data for rapid prototyping and testing.",
+      image: "https://i.ibb.co.com/GfCp766N/Screenshot-2026-09-08-082936.png", 
+      technologies: [
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "Tailwind CSS",
+        "REST API",
+      ],
+      liveUrl: "https://emon-api-mocker-mvp.vercel.app/",
+      githubUrl: "https://github.com/emon35410/Emon-API-Mocker-MVP", 
+    },
+    {
+      title: "Vortix Lang",
+      category: "Compiler Construction",
+      description: "A custom programming language and interpreter built for Compiler Construction, featuring lexing, parsing, and execution capabilities with structured syntax. It also includes a fully functional web-based live editor.",
+      image: "https://i.ibb.co.com/KjPxb2DY/Screenshot-2026-09-08-081826.png", 
+      technologies: [
+        "C",
+        "Flex",
+        "Bison",
+        "Python (Flask)",
+        "Docker"
+      ],
+      liveUrl: "https://vortix-lang.onrender.com/",
+      githubUrl: "https://github.com/emon35410/vortix-lang",
+    }
   ];
 
   const containerVariants = {

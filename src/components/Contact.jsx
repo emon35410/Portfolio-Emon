@@ -32,7 +32,8 @@ const Contact = () => {
     { name: 'GitHub', icon: Github, url: 'https://github.com/emon35410', color: 'hover:border-green-500' },
     { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/in/mahmudul-hasan-emon-mhe/', color: 'hover:border-blue-500' },
     { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/mahmudulhasanemon354', color: 'hover:border-blue-600' },
-    { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/ertugrul_emon_10/', color: 'hover:border-pink-500' }
+    { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/ertugrul_emon_10/', color: 'hover:border-pink-500' },
+    { name: 'Instagram2', icon: Instagram, url: 'https://www.instagram.com/terminal_emon_06/', color: 'hover:border-red-500' }
   ]
 
   const containerVariants = {

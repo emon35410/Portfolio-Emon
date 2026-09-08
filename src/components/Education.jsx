@@ -7,7 +7,7 @@ const Education = () => {
       type: "Academic",
       degree: "B.Sc. in Computer Science & Engineering",
       institution: "Metropolitan University, Sylhet",
-      period: "2023 — Present (4th Year / 1st Semester)",
+      period: "2023 — Present (4th Year / 2nd Semester)",
       location: "Sylhet, Bangladesh",
       description: "Focusing on Software Engineering, and Web Technologies. Currently working on final year Thesis/project.",
       skills: ["Data Structures", "Algorithms", "DBMS", "Artificial Intelligence", "Machine Learning", "Software Engineering And Design Patterns","Web Programming"]

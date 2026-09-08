@@ -16,6 +16,7 @@ import LoadingScreen from './components/LoadingScreen'
 import CustomCursor from './components/CustomCursor'
 import Experience from './components/Experience'
 import Achievements from './components/Achievements'
+import Publications from './components/Publications'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -121,6 +122,9 @@ function App() {
 
             <section id="education">
               <Education />
+            </section>
+            <section id="publications">
+              <Publications></Publications>
             </section>
 
             <section id="recognitions">
