@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
-import { Download, ArrowRight, FileText } from 'lucide-react'
+import { Download, ArrowRight, Terminal as TerminalIcon } from 'lucide-react'
 import Emon from '../assets/Emon.webp'
+import { HackerText } from './HackerText'
+import { MagneticButton } from './MagneticButton'
 
 // --- Typewriter Sub-Component ---
 const Typewriter = ({ texts }) => {
@@ -40,6 +42,10 @@ const Hero = () => {
     }
   }
 
+  const handleOpenTerminal = () => {
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '~' }))
+  }
+
   return (
     <section id="home" className="min-h-screen flex items-center pt-28 md:pt-25 pb-12 bg-transparent overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
@@ -51,15 +57,15 @@ const Hero = () => {
           transition={{ duration: 0.6 }}
           className="order-2 md:order-1"
         >
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-green-500 text-sm mb-3 flex items-center gap-2 font-medium tracking-widest"
+            className="text-green-500 text-sm mb-3 flex items-center gap-2 font-medium tracking-widest cursor-default"
           >
             <span className="w-8 h-0.5 bg-green-500"></span>
-            MERN STACK DEVELOPER
-          </motion.p>
+            <HackerText text="MERN STACK DEVELOPER" speed={40} className="font-mono text-xs uppercase" />
+          </motion.div>
           
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -107,42 +113,49 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="flex gap-4 flex-wrap"
+            className="flex gap-4 flex-wrap items-center"
           >
             {/* Contact Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleContactClick}
-              className="bg-green-500 px-6 py-3.5 rounded-xl text-black text-sm font-bold hover:bg-green-400 transition-all flex items-center gap-2 shadow-[0_10px_20px_rgba(34,197,94,0.2)]"
-            >
-              Contact Me
-              <ArrowRight size={16} />
-            </motion.button>
+            <MagneticButton strength={0.25}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleContactClick}
+                className="bg-green-500 px-6 py-3.5 rounded-xl text-black text-sm font-bold hover:bg-green-400 transition-all flex items-center gap-2 shadow-[0_10px_20px_rgba(34,197,94,0.2)]"
+              >
+                Contact Me
+                <ArrowRight size={16} />
+              </motion.button>
+            </MagneticButton>
             
             {/* Resume Button */}
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="/MAHMUDUL_HASAN_EMON.pdf" 
-              download="MAHMUDUL_HASAN_EMON.pdf" 
-              className="border border-white/10 text-white px-6 py-3.5 rounded-xl text-sm font-bold hover:border-green-500/50 hover:bg-green-500/5 transition-all flex items-center gap-2"
-            >
-              <Download size={16} />
-              Resume
-            </motion.a>
+            <MagneticButton strength={0.25}>
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="/MAHMUDUL_HASAN_EMON.pdf" 
+                download="MAHMUDUL_HASAN_EMON.pdf" 
+                className="border border-white/10 text-white px-6 py-3.5 rounded-xl text-sm font-bold hover:border-green-500/50 hover:bg-green-500/5 transition-all flex items-center gap-2"
+              >
+                <Download size={16} />
+                Download Resume
+              </motion.a>
+            </MagneticButton>
 
-            {/* CV Download Button */}
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="/cv.pdf" 
-              download="Emon_CV.pdf"
-              className="border border-white/10 text-white px-6 py-3.5 rounded-xl text-sm font-bold hover:border-green-500/50 hover:bg-green-500/5 transition-all flex items-center gap-2"
-            >
-              <FileText size={16} />
-              Download CV
-            </motion.a>
+            {/* Quick Terminal Launch Button */}
+            <MagneticButton strength={0.25}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleOpenTerminal}
+                className="border border-green-500/30 text-green-400 bg-green-500/5 px-4 py-3.5 rounded-xl text-sm font-mono font-medium hover:bg-green-500/10 hover:border-green-500/60 transition-all flex items-center gap-2"
+                title="Open Interactive CLI (~)"
+              >
+                <TerminalIcon size={16} />
+                <span className="hidden sm:inline">Terminal</span>
+                <span className="text-[10px] bg-green-500/20 px-1.5 py-0.5 rounded text-green-300">~</span>
+              </motion.button>
+            </MagneticButton>
           </motion.div>
         </motion.div>
 

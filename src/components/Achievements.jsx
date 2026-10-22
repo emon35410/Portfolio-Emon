@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Camera, HeartPulse, Users, Award, Microscope, ChevronLeft, ChevronRight, Layout } from 'lucide-react'
+import { HackerText } from './HackerText'
 
 // Asset imports
 import researchCert from '../assets/certificates/626.webp'
@@ -105,7 +106,10 @@ const Achievements = () => {
         >
           <Award className="text-green-500 mb-4" size={28} />
           <h2 className="text-4xl md:text-5xl font-black text-white italic tracking-tighter">
-            Verified <span className="text-green-500">Excellence</span>
+            <HackerText text="Verified" speed={30} />{" "}
+            <span className="text-green-500">
+              <HackerText text="Excellence" speed={35} />
+            </span>
           </h2>
         </motion.div>
 

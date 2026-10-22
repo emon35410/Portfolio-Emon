@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { GraduationCap, MapPin, BookOpen, Award, Code2 } from 'lucide-react'
+import { HackerText } from './HackerText'
 
 const Education = () => {
   const educationData = [
@@ -10,7 +11,7 @@ const Education = () => {
       period: "2023 — Present (4th Year / 2nd Semester)",
       location: "Sylhet, Bangladesh",
       description: "Focusing on Software Engineering, and Web Technologies. Currently working on final year Thesis/project.",
-      skills: ["Data Structures", "Algorithms", "DBMS", "Artificial Intelligence", "Machine Learning", "Software Engineering And Design Patterns","Web Programming"]
+      skills: ["Structure Programming","Data Structures", "Algorithms", "DBMS", "Artificial Intelligence", "Machine Learning", "Software Engineering And Design Patterns","Web Programming","Computer Networks","Operating Systems","Compiler Construction","Bioinformatics"]
     },
     {
       type: "Certification",
@@ -57,7 +58,9 @@ const Education = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h3 className="text-4xl font-bold text-white mb-4">Academic & Training</h3>
+          <h3 className="text-4xl font-bold text-white mb-4">
+            <HackerText text="Academic & Training" speed={30} />
+          </h3>
           <div className="w-16 h-1 bg-green-500 mx-auto rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
         </motion.div>
 

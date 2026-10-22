@@ -5,6 +5,7 @@ import {
   Send, Mail, MapPin,
   Github, Linkedin, Facebook, Instagram, Phone, CheckCircle2
 } from 'lucide-react'
+import { HackerText } from './HackerText'
 
 const Contact = () => {
   const ref = useRef(null)
@@ -24,8 +25,8 @@ const Contact = () => {
   }
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'mhhsan341@gmail.com' },
-    { icon: MapPin, label: 'Location', value: 'Sylhet, Bangladesh' }
+    { icon: Mail, label: 'Email', value: 'mhhsan341@gmail.com', href: 'mailto:mhhsan341@gmail.com' },
+    { icon: MapPin, label: 'Location', value: 'Sylhet, Bangladesh', href: null }
   ]
 
   const socialLinks = [
@@ -33,7 +34,7 @@ const Contact = () => {
     { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/in/mahmudul-hasan-emon-mhe/', color: 'hover:border-blue-500' },
     { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/mahmudulhasanemon354', color: 'hover:border-blue-600' },
     { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/ertugrul_emon_10/', color: 'hover:border-pink-500' },
-    { name: 'Instagram2', icon: Instagram, url: 'https://www.instagram.com/terminal_emon_06/', color: 'hover:border-red-500' }
+    { name: 'Terminal IG', icon: Instagram, url: 'https://www.instagram.com/terminal_emon_06/', color: 'hover:border-emerald-500' }
   ]
 
   const containerVariants = {
@@ -58,7 +59,7 @@ const Contact = () => {
           className="text-center mb-12 md:mb-20"
         >
           <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-100 mb-6 italic tracking-tight">
-            Let&apos;s Work Together
+            <HackerText text="Let's Work Together" speed={30} />
           </h3>
           <div className="w-20 h-1.5 bg-green-500 mx-auto rounded-full shadow-[0_0_20px_rgba(34,197,94,0.3)]" />
           <p className="text-slate-400 mt-8 max-w-2xl mx-auto text-base md:text-xl leading-relaxed">

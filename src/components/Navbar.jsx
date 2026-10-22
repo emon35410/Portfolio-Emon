@@ -57,14 +57,18 @@ const Navbar = () => {
     const element = document.getElementById(sectionId)
 
     if (element) {
-      const offset = 80
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - offset
+      if (window.lenis) {
+        window.lenis.scrollTo(element, { offset: -80, duration: 1.2 })
+      } else {
+        const offset = 80
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - offset
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
     }
   }
 
