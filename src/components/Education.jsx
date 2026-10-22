@@ -10,7 +10,7 @@ const Education = () => {
       period: "2023 — Present (4th Year / 2nd Semester)",
       location: "Sylhet, Bangladesh",
       description: "Focusing on Software Engineering, and Web Technologies. Currently working on final year Thesis/project.",
-      skills: ["Data Structures", "Algorithms", "DBMS", "Artificial Intelligence", "Machine Learning", "Software Engineering And Design Patterns","Web Programming"]
+      skills: ["Structure Programming","Data Structures", "Algorithms", "DBMS", "Artificial Intelligence", "Machine Learning", "Software Engineering And Design Patterns","Web Programming","Computer Networks","Operating Systems","Compiler Construction","Bioinformatics"]
     },
     {
       type: "Certification",
