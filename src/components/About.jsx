@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Code, Smartphone, Zap, Heart, History, Trophy, Star } from 'lucide-react'
+import { HackerText } from './HackerText'
 
 const About = () => {
   const ref = useRef(null)
@@ -38,8 +39,10 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h3 className="text-3xl md:text-5xl font-bold text-white mb-4">About Me</h3>
-          <div className="w-20 h-1.5 bg-primary mx-auto rounded-full" />
+          <h3 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <HackerText text="About Me" speed={30} />
+          </h3>
+          <div className="w-20 h-1.5 bg-green-500 mx-auto rounded-full shadow-[0_0_15px_rgba(34,197,94,0.4)]" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start mb-24">
@@ -51,19 +54,19 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold tracking-wide">
-              <Star size={14} className="fill-primary" /> 
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-semibold tracking-wide">
+              <Star size={14} className="fill-green-400" /> 
               <span>MERN STACK DEVELOPER</span>
             </div>
 
             <h4 className="text-3xl md:text-4xl font-extrabold text-white leading-[1.2]">
               Transforming Ideas into <br />
-              <span className="text-primary italic">High-Performance</span> Solutions
+              <span className="text-green-400 italic">High-Performance</span> Solutions
             </h4>
 
             <div className="space-y-5 text-slate-400 text-lg leading-relaxed font-light">
               <p>
-                Hi, I&apos;m <span className="text-white font-medium border-b border-primary/40">Mahmudul Hasan Emon</span>. 
+                Hi, I&apos;m <span className="text-white font-medium border-b border-green-500/40">Mahmudul Hasan Emon</span>. 
                 I specialize in developing dynamic and user-centric web applications using the <span className="text-white">MERN stack</span>. 
                 My focus is always on delivering seamless digital experiences through clean and efficient code.
               </p>
@@ -83,18 +86,18 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="bg-white/[0.02] p-8 rounded-[2rem] border border-white/5 relative overflow-hidden group"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-[80px] rounded-full" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/5 blur-[80px] rounded-full" />
             
             <h4 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-              <Heart className="text-primary fill-primary/20" size={24} /> 
+              <Heart className="text-green-500 fill-green-500/20" size={24} /> 
               Outside the Workspace
             </h4>
 
             <div className="space-y-10">
               {/* Football Card */}
               <div className="flex gap-5 group/item">
-                <div className="w-12 h-12 shrink-0 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/10 group-hover/item:bg-primary transition-all duration-500">
-                  <Trophy className="text-primary group-hover/item:text-black" size={24} />
+                <div className="w-12 h-12 shrink-0 bg-green-500/10 rounded-2xl flex items-center justify-center border border-green-500/10 group-hover/item:bg-green-500 transition-all duration-500">
+                  <Trophy className="text-green-400 group-hover/item:text-black" size={24} />
                 </div>
                 <div>
                   <h5 className="font-bold text-white text-lg">Football Enthusiast</h5>
@@ -129,9 +132,9 @@ const About = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: service.delay }}
               whileHover={{ y: -8, backgroundColor: "rgba(255,255,255,0.04)" }}
-              className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-primary/40 transition-all duration-300 group"
+              className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-green-500/40 transition-all duration-300 group"
             >
-              <service.icon className="text-primary mb-6 group-hover:scale-110 transition-transform" size={36} />
+              <service.icon className="text-green-400 mb-6 group-hover:scale-110 transition-transform" size={36} />
               <h4 className="text-xl font-bold text-white mb-3">{service.title}</h4>
               <p className="text-slate-500 text-sm leading-relaxed">{service.description}</p>
             </motion.div>

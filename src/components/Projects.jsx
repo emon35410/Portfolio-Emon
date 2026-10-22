@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
+import { SpotlightCard } from "./SpotlightCard";
+import { HackerText } from "./HackerText";
 
 const Projects = () => {
   const ref = useRef(null);
@@ -135,18 +137,18 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h3 className="text-4xl md:text-5xl font-bold text-white mb-4 italic tracking-tight">
-            Featured{" "}
+            <HackerText text="Featured" speed={30} />{" "}
             <span className="text-green-500 underline decoration-2 underline-offset-8">
-              Work
+              <HackerText text="Work" speed={35} />
             </span>
           </h3>
           <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg leading-relaxed">
-            A selection of my recent full-stack and frontend developments,
+            A selection of my recent full-stack, compiler, and frontend developments,
             focusing on clean code and user experience.
           </p>
         </motion.div>
 
-        {/* Project Grid */}
+        {/* Project Grid with Spotlight & 3D Tilt */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -154,79 +156,97 @@ const Projects = () => {
           className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10"
         >
           {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              whileHover={{ y: -8 }}
-              className="group relative flex flex-col bg-[#111827]/40 border border-white/5 rounded-3xl overflow-hidden hover:border-green-500/30 transition-all duration-500"
-            >
-              {/* Image Section */}
-              <div className="relative h-64 sm:h-72 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+            <motion.div key={index} variants={cardVariants} className="h-full">
+              <SpotlightCard
+                enableTilt={true}
+                spotlightColor="rgba(34, 197, 94, 0.18)"
+                className="group h-full flex flex-col hover:border-green-500/40"
+              >
+                {/* Image Section */}
+                <div className="relative h-64 sm:h-72 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
 
-                {/* Overlay for Links on Hover */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6 z-20">
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white border border-white/20 transition-all"
-                  >
-                    <Github size={22} />
-                  </a>
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-3 bg-green-500 hover:bg-green-400 rounded-full text-black transition-all"
-                  >
-                    <ExternalLink size={22} />
-                  </a>
-                </div>
-
-                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] text-green-400 border border-white/10 font-bold uppercase tracking-[0.1em]">
-                  {project.category}
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-8 flex flex-col flex-grow bg-gradient-to-b from-transparent to-[#0f172a]/80">
-                <div className="flex justify-between items-start mb-4">
-                  <h4 className="text-2xl font-bold text-white group-hover:text-green-400 transition-colors">
-                    {project.title}
-                  </h4>
-                </div>
-
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 ">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-8 mt-auto">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-[10px] font-medium text-gray-400 bg-white/5 px-2.5 py-1 rounded-md border border-white/5 transition-all group-hover:border-green-500/20 group-hover:text-green-300"
+                  {/* Overlay for Quick Links on Hover */}
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${project.title} GitHub Source Code`}
+                      className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white border border-white/20 transition-all hover:scale-110"
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <Github size={20} />
+                    </a>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${project.title} Live Preview`}
+                      className="p-3 bg-green-500 hover:bg-green-400 rounded-full text-black transition-all hover:scale-110 shadow-lg shadow-green-500/30"
+                    >
+                      <ExternalLink size={20} />
+                    </a>
+                  </div>
+
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] text-green-400 border border-white/10 font-bold uppercase tracking-[0.1em]">
+                    {project.category}
+                  </div>
                 </div>
 
-                {/* Action Button */}
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-3.5 bg-transparent border border-white/10 hover:border-green-500 hover:bg-green-500/5 text-white hover:text-green-400 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300"
-                >
-                  Live Preview <ExternalLink size={14} strokeWidth={2.5} />
-                </a>
-              </div>
+                {/* Content Section */}
+                <div className="p-8 flex flex-col flex-grow bg-gradient-to-b from-transparent to-[#0a101e]/90">
+                  <div className="flex justify-between items-start mb-4">
+                    <h4 className="text-2xl font-bold text-white group-hover:text-green-400 transition-colors">
+                      {project.title}
+                    </h4>
+                  </div>
+
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mb-8 mt-auto">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[10px] font-medium text-gray-400 bg-white/5 px-2.5 py-1 rounded-md border border-white/5 transition-all group-hover:border-green-500/20 group-hover:text-green-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons: Dual layout (always visible on mobile & desktop) */}
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Live Demo of ${project.title}`}
+                      className="flex items-center justify-center gap-2 py-3 bg-green-500 hover:bg-green-400 text-black rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md shadow-green-500/10"
+                    >
+                      <span>Live Demo</span>
+                      <ExternalLink size={13} strokeWidth={2.5} />
+                    </a>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Source Code of ${project.title}`}
+                      className="flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-green-500/30 text-white rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300"
+                    >
+                      <Github size={14} />
+                      <span>Code</span>
+                    </a>
+                  </div>
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </motion.div>

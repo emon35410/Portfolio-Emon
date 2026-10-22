@@ -17,6 +17,8 @@ import CustomCursor from './components/CustomCursor'
 import Experience from './components/Experience'
 import Achievements from './components/Achievements'
 import Publications from './components/Publications'
+import CyberGridBackground from './components/CyberGridBackground'
+import TerminalModal from './components/TerminalModal'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,6 +37,8 @@ function App() {
       infinite: false,
     })
 
+    window.lenis = lenis
+
     function raf(time) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -45,11 +49,12 @@ function App() {
     // 2. Loading Timer
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2500)
+    }, 1800)
 
     // Cleanup
     return () => {
       clearTimeout(timer)
+      window.lenis = null
       lenis.destroy()
     }
   }, [])
@@ -60,11 +65,13 @@ function App() {
       {/* 1. Global Utilities */}
       <CustomCursor />
       <ScrollToTop />
+      <TerminalModal />
 
       {/* 2. Fixed Navbar */}
       {!isLoading && <Navbar />}
 
       {/* 3. Global Animated Background Layer */}
+      <CyberGridBackground />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{

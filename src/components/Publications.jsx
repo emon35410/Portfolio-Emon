@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { BookOpen, ExternalLink, FileText, Sparkles, Users } from 'lucide-react'
+import { HackerText } from './HackerText'
 
 const Publications = () => {
   const publications = [
@@ -41,7 +42,7 @@ const Publications = () => {
             Academic & Research
           </span>
           <h3 className="text-2xl md:text-4xl font-bold text-slate-200 tracking-tight text-center">
-            Research Publications
+            <HackerText text="Research Publications" speed={30} />
           </h3>
           <div className="w-16 h-1 bg-emerald-500/60 mt-4 rounded-full" />
         </motion.div>

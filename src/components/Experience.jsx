@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Briefcase, CheckCircle2,  Database, FileSearch } from 'lucide-react'
+import { HackerText } from './HackerText'
 
 const Experience = () => {
   const points = [
@@ -23,7 +24,9 @@ const Experience = () => {
           className="flex flex-col items-center mb-12"
         >
           <span className="text-green-500 text-xs font-bold tracking-[0.3em] uppercase mb-3">Journey So Far</span>
-          <h3 className="text-3xl md:text-5xl font-black italic text-white tracking-tight text-center">Professional Experience</h3>
+          <h3 className="text-3xl md:text-5xl font-black italic text-white tracking-tight text-center">
+            <HackerText text="Professional Experience" speed={30} />
+          </h3>
           <div className="w-24 h-1.5 bg-green-500 mt-4 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
         </motion.div>
 

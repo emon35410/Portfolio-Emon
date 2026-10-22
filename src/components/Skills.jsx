@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { HackerText } from './HackerText'
 import {
   SiHtml5, SiCss3, SiTailwindcss, SiJavascript,
   SiReact, SiNextdotjs, SiExpress, SiMongodb, SiNodedotjs,
@@ -53,8 +54,8 @@ const Skills = () => {
           delay: index * 0.05,
           ease: "easeOut"
         }}
-        whileHover={{ y: -5, backgroundColor: "rgba(255, 255, 255, 0.08)" }}
-        className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-primary/50 transition-all flex items-center gap-4 group"
+        whileHover={{ y: -5, scale: 1.02 }}
+        className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all flex items-center gap-4 group"
       >
         <div className={`text-3xl ${skill.color} transition-transform group-hover:scale-110 duration-300`}>
           <Icon />
@@ -74,13 +75,15 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h3 className="text-3xl md:text-4xl font-bold italic text-white uppercase tracking-tighter">Technical Expertise</h3>
-          <div className="w-16 h-1 bg-primary mx-auto mt-4 rounded-full shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]" />
+          <h3 className="text-3xl md:text-4xl font-bold italic text-white uppercase tracking-tighter">
+            <HackerText text="Technical Expertise" speed={30} />
+          </h3>
+          <div className="w-16 h-1 bg-green-500 mx-auto mt-4 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
         </motion.div>
 
         {/* Frontend Grid */}
         <div className="mb-10">
-          <h4 className="text-sm font-semibold mb-6 text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">
+          <h4 className="text-sm font-semibold mb-6 text-white/40 uppercase tracking-[0.2em] border-l-2 border-green-500 pl-4">
             Frontend
           </h4>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -90,7 +93,7 @@ const Skills = () => {
 
         {/* Backend Grid */}
         <div className="mb-16">
-          <h4 className="text-sm font-semibold mb-6 text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">
+          <h4 className="text-sm font-semibold mb-6 text-white/40 uppercase tracking-[0.2em] border-l-2 border-green-500 pl-4">
             Backend & DB
           </h4>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
