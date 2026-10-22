@@ -1,24 +1,32 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useInView } from 'framer-motion'
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}—=+*^?#_~'
 
 export const HackerText = ({
   text,
   className = '',
-  speed = 35,
+  speed = 28,
   triggerOnHover = true,
-  scrambleOnMount = true,
+  triggerInView = true,
 }) => {
   const [displayText, setDisplayText] = useState(text)
-  const [isAnimating, setIsAnimating] = useState(false)
+  const containerRef = useRef(null)
   const intervalRef = useRef(null)
+  const isAnimatingRef = useRef(false)
+  const hasAnimatedRef = useRef(false)
 
-  const scramble = useCallback(() => {
-    if (isAnimating) return
-    setIsAnimating(true)
+  // Trigger when heading enters the viewport (amount: 0.2 is mobile friendly)
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 })
+
+  const startScramble = useCallback(() => {
+    if (isAnimatingRef.current) return
+    isAnimatingRef.current = true
 
     let iteration = 0
-    clearInterval(intervalRef.current)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+    }
 
     intervalRef.current = setInterval(() => {
       setDisplayText(() =>
@@ -36,24 +44,39 @@ export const HackerText = ({
 
       if (iteration >= text.length) {
         clearInterval(intervalRef.current)
-        setIsAnimating(false)
+        intervalRef.current = null
+        isAnimatingRef.current = false
+        setDisplayText(text) // Always guarantee clean original text
       }
 
       iteration += 1 / 2
     }, speed)
-  }, [isAnimating, speed, text])
+  }, [speed, text])
 
+  // Trigger once when scrolled into view
   useEffect(() => {
-    if (scrambleOnMount) {
-      scramble()
+    if (triggerInView && isInView && !hasAnimatedRef.current) {
+      hasAnimatedRef.current = true
+      startScramble()
     }
-    return () => clearInterval(intervalRef.current)
-  }, [scramble, scrambleOnMount])
+  }, [isInView, startScramble, triggerInView])
+
+  // Sync if text changes, and ensure cleanup on unmount
+  useEffect(() => {
+    setDisplayText(text)
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+  }, [text])
 
   return (
     <span
+      ref={containerRef}
       className={`inline-block ${className}`}
-      onMouseEnter={triggerOnHover ? scramble : undefined}
+      onMouseEnter={triggerOnHover ? startScramble : undefined}
       aria-label={text}
     >
       {displayText}
