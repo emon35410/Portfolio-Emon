@@ -10,6 +10,9 @@ const COMMANDS = {
   • paper       - Research publication (EFAST 2026 / SSRN)
   • experience  - Professional journey & background
   • contact     - Contact details & social links
+  • thor        - ⚡ Activate Thor God of Thunder FX
+  • spiderman   - 🕷️ Activate Spider-Man Web Slinger FX
+  • matrix      - 🟢 Restore Default Cyber Aesthetic
   • clear       - Clear the terminal console
   • exit        - Close the interactive terminal`,
 
@@ -53,7 +56,28 @@ ENGINEERING & TOOLS:
   • Phone:    +880 1886927118
   • WhatsApp: https://wa.me/8801886927118
   • GitHub:   https://github.com/emon35410
-  • LinkedIn: https://www.linkedin.com/in/mahmudul-hasan-emon-mhe/`
+  • LinkedIn: https://www.linkedin.com/in/mahmudul-hasan-emon-mhe/`,
+
+  thor: `⚡ [ASGARDIAN OVERCHARGE]
+  Thor: God of Thunder Mode ACTIVATED!
+  Mjolnir's power surges through your screen.
+  Click anywhere on the screen to strike with procedural lightning!`,
+
+  spiderman: `🕷️ [SPIDER-VERSE PROTOCOL]
+  Friendly Neighborhood Spider-Man Mode ACTIVATED!
+  "With great power comes great responsibility."
+  Click or drag anywhere to shoot web strands!`,
+
+  spidey: `🕷️ [SPIDER-VERSE PROTOCOL]
+  Friendly Neighborhood Spider-Man Mode ACTIVATED!
+  "With great power comes great responsibility."
+  Click or drag anywhere to shoot web strands!`,
+
+  matrix: `🟢 [CYBER PROTOCOL]
+  Default Cyber Matrix aesthetic restored.`,
+
+  cyber: `🟢 [CYBER PROTOCOL]
+  Default Cyber Matrix aesthetic restored.`
 }
 
 export const TerminalModal = () => {
@@ -118,6 +142,13 @@ export const TerminalModal = () => {
 
     if (COMMANDS[cmd]) {
       newHistory.push({ type: 'output', text: COMMANDS[cmd] })
+      if (cmd === 'thor') {
+        window.dispatchEvent(new CustomEvent('set-hero-mode', { detail: 'thor' }))
+      } else if (cmd === 'spiderman' || cmd === 'spidey') {
+        window.dispatchEvent(new CustomEvent('set-hero-mode', { detail: 'spiderman' }))
+      } else if (cmd === 'matrix' || cmd === 'cyber') {
+        window.dispatchEvent(new CustomEvent('set-hero-mode', { detail: 'cyber' }))
+      }
     } else {
       newHistory.push({
         type: 'error',

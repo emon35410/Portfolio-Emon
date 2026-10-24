@@ -19,6 +19,7 @@ import Achievements from './components/Achievements'
 import Publications from './components/Publications'
 import CyberGridBackground from './components/CyberGridBackground'
 import TerminalModal from './components/TerminalModal'
+import { SuperheroFX } from './components/SuperheroFX'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -66,6 +67,7 @@ function App() {
       <CustomCursor />
       <ScrollToTop />
       <TerminalModal />
+      <SuperheroFX />
 
       {/* 2. Fixed Navbar */}
       {!isLoading && <Navbar />}
