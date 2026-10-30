@@ -29,7 +29,7 @@ const About = () => {
   ]
 
   return (
-    <section id="about" className="py-10" ref={ref}>
+    <div className="py-10" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Section Heading */}
@@ -141,7 +141,7 @@ const About = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

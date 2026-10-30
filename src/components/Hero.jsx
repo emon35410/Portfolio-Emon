@@ -38,7 +38,8 @@ const Hero = () => {
   const handleContactClick = () => {
     const contactSection = document.getElementById('contact')
     if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' })
+      if (window.lenis) window.lenis.scrollTo(contactSection, { offset: -80, duration: 1.2 })
+      else contactSection.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -47,7 +48,7 @@ const Hero = () => {
   }
 
   return (
-    <section id="home" className="min-h-screen flex items-center pt-28 md:pt-25 pb-12 bg-transparent overflow-hidden">
+    <div className="min-h-screen min-h-[100svh] flex items-center pt-28 md:pt-24 pb-12 bg-transparent overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         
         {/* Text Content Section */}
@@ -80,7 +81,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-xl md:text-3xl font-semibold mb-6 text-gray-400 min-h-[40px] flex items-center"
+            className="text-xl md:text-3xl font-semibold mb-6 text-gray-400 min-h-[64px] sm:min-h-[40px] flex flex-wrap items-center"
           >
             I am a&nbsp;
             <span className="text-green-500 font-bold">
@@ -176,7 +177,11 @@ const Hero = () => {
             >
               <img
                 src={Emon}
-                alt="Emon Profile"
+                alt="Mahmudul Hasan Emon, MERN Stack Developer"
+                width={320}
+                height={460}
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
@@ -194,7 +199,7 @@ const Hero = () => {
         </motion.div>
 
       </div>
-    </section>
+    </div>
   )
 }
 

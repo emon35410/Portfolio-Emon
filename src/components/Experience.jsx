@@ -10,7 +10,7 @@ const Experience = () => {
   ]
 
   return (
-    <section id="experience" className="py-10 relative overflow-hidden">
+    <div className="py-10 relative overflow-hidden">
       {/* Background Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-500/10 blur-[100px] rounded-full pointer-events-none" />
 
@@ -82,7 +82,7 @@ const Experience = () => {
           </motion.div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

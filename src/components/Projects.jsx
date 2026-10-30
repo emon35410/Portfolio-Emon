@@ -1,8 +1,50 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, Github, ImageOff, FolderOpen } from "lucide-react";
+import EmptyState from "./EmptyState";
+
+// Self-hosted, compressed screenshots (previously loaded from a slow third-party host)
+import redAvengersImg from "../assets/projects/red-avengers.webp";
+import portfolioImg from "../assets/projects/portfolio.webp";
+import bloodHeroesImg from "../assets/projects/blood-heroes.webp";
+import homeNestImg from "../assets/projects/home-nest.webp";
+import heroUiImg from "../assets/projects/hero-ui.webp";
+import mockflowImg from "../assets/projects/mockflow.webp";
+import vortixImg from "../assets/projects/vortix.webp";
 import { SpotlightCard } from "./SpotlightCard";
 import { HackerText } from "./HackerText";
+
+// Image with skeleton while loading and a graceful fallback if it fails
+const ProjectImage = ({ src, alt }) => {
+  const [status, setStatus] = useState("loading");
+
+  if (status === "error" || !src) {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-slate-900 to-[#0a101e] text-slate-500">
+        <ImageOff size={28} strokeWidth={1.5} />
+        <span className="text-xs">Preview unavailable</span>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {status === "loading" && <div className="absolute inset-0 bg-white/5 animate-pulse" />}
+      <img
+        src={src}
+        alt={alt}
+        width={1000}
+        height={560}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setStatus("loaded")}
+        onError={() => setStatus("error")}
+        className={`w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105 ${status === "loaded" ? "opacity-100" : "opacity-0"}`}
+      />
+    </>
+  );
+};
 
 const Projects = () => {
   const ref = useRef(null);
@@ -14,7 +56,7 @@ const Projects = () => {
       category: "Full-Stack MERN",
       description:
         "A Smart AI-Integrated Blood Donation and Management System. Features an AI Eligibility Bot (Red Bot), real-time emergency alerts via Socket.io, and secure financial donations for blood camps.",
-      image: "https://i.ibb.co.com/5hNKW2WT/Screenshot-2026-04-23-191241.png",
+      image: redAvengersImg,
       technologies: [
         "React",
         "Node.js",
@@ -32,7 +74,7 @@ const Projects = () => {
       category: "Frontend Excellence",
       description:
         "A high-performance personal brand space engineered for seamless user experience. It features Lenis smooth scrolling, intricate Framer Motion animations, and a fully responsive design. Integrated with Formspree for robust lead generation and optimized with Tailwind CSS for industry-leading load speeds.",
-      image: "https://i.ibb.co.com/xtgxNLy8/Screenshot-2026-04-23-192327.png",
+      image: portfolioImg,
       technologies: [
         "React",
         "Tailwind CSS",
@@ -49,7 +91,7 @@ const Projects = () => {
       category: "MERN Stack",
       description:
         "Connects blood donors and recipients with real-time requests. Features a complex dashboard for management with user role-based access control.",
-      image: "https://i.ibb.co.com/n8PVP4TK/bloodherosemon-netlify-app-1.png",
+      image: bloodHeroesImg,
       technologies: ["React", "Node.js", "Express", "MongoDB"],
       liveUrl: "https://bloodherosemon.netlify.app/",
       githubUrl: "https://github.com/emon35410/BloodHeros-Client",
@@ -59,10 +101,10 @@ const Projects = () => {
       category: "Real Estate",
       description:
         "A premium property listing platform with secure authentication, property management for agents, and advanced search filters.",
-      image: "https://i.ibb.co.com/S4By23j6/localhost-5173-3.png",
+      image: homeNestImg,
       technologies: ["React", "Node.js", "Firebase", "Tailwind"],
       liveUrl: "https://home-nest-mhe.netlify.app/",
-      githubUrl: "https://github.com/emon35410/HomeNest-Client.git",
+      githubUrl: "https://github.com/emon35410/HomeNest-Client",
     },
     {
       title: "Hero UI",
@@ -70,17 +112,17 @@ const Projects = () => {
       description:
         "A sleek, tool-based web app focused on providing users with a smooth, dark-themed responsive interface and AOS animations.",
       image:
-        "https://i.ibb.co.com/QFJMBMVk/luminous-tanuki-c653df-netlify-app.png",
+        heroUiImg,
       technologies: ["JavaScript", "Tailwind", "AOS"],
       liveUrl: "https://luminous-tanuki-c653df.netlify.app/",
-      githubUrl: "https://github.com/emon35410/Assignment-8.git",
+      githubUrl: "https://github.com/emon35410/Assignment-8",
     },
     {
       title: "MockFlow API",
       category: "SaaS Product",
       description:
         "A developer-centric SaaS platform that allows users to instantly generate mock API endpoints from custom JSON data for rapid prototyping and testing.",
-      image: "https://i.ibb.co.com/GfCp766N/Screenshot-2026-09-08-082936.png", 
+      image: mockflowImg, 
       technologies: [
         "React",
         "Node.js",
@@ -96,7 +138,7 @@ const Projects = () => {
       title: "Vortix Lang",
       category: "Compiler Construction",
       description: "A custom programming language and interpreter built for Compiler Construction, featuring lexing, parsing, and execution capabilities with structured syntax. It also includes a fully functional web-based live editor.",
-      image: "https://i.ibb.co.com/KjPxb2DY/Screenshot-2026-09-08-081826.png", 
+      image: vortixImg, 
       technologies: [
         "C",
         "Flex",
@@ -127,7 +169,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 relative" ref={ref}>
+    <div className="py-20 relative" ref={ref}>
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -149,6 +191,13 @@ const Projects = () => {
         </motion.div>
 
         {/* Project Grid with Spotlight & 3D Tilt */}
+        {projects.length === 0 ? (
+          <EmptyState
+            icon={FolderOpen}
+            title="No projects to display"
+            message="Check back soon for new case studies and open-source releases."
+          />
+        ) : (
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -164,12 +213,7 @@ const Projects = () => {
               >
                 {/* Image Section */}
                 <div className="relative h-64 sm:h-72 overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
+                  <ProjectImage src={project.image} alt={`${project.title} screenshot`} />
 
                   {/* Overlay for Quick Links on Hover */}
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
@@ -250,8 +294,9 @@ const Projects = () => {
             </motion.div>
           ))}
         </motion.div>
+        )}
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -10,14 +10,14 @@ const Education = () => {
       institution: "Metropolitan University, Sylhet",
       period: "2023 — Present (4th Year / 2nd Semester)",
       location: "Sylhet, Bangladesh",
-      description: "Focusing on Software Engineering, and Web Technologies. Currently working on final year Thesis/project.",
+      description: "Focusing on Software Engineering and Web Technologies. Currently working on my final-year thesis project.",
       skills: ["Structure Programming","Data Structures", "Algorithms", "DBMS", "Artificial Intelligence", "Machine Learning", "Software Engineering And Design Patterns","Web Programming","Computer Networks","Operating Systems","Compiler Construction","Bioinformatics"]
     },
     {
       type: "Certification",
       degree: "Complete Web Development (Level-1)",
       institution: "Programming Hero",
-      period: "Completed (95% Completed)",
+      period: "In Progress (95% Complete)",
       location: "Online (Jhankar Mahbub)",
       description: "Intensive training on MERN Stack (MongoDB, Express, React, Node.js). Working on various full-stack industry projects.",
       skills: ["React.js", "Firebase", "Tailwind CSS", "Node.js","MongoDB", "Express.js"],
@@ -45,9 +45,9 @@ const Education = () => {
   }
 
   return (
-    <section id="education" className="py-14 relative overflow-hidden">
+    <div className="py-14 relative overflow-hidden">
       {/* Dynamic Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-500/5 blur-[120px] -z-10 animate-pulse" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(500px,100vw)] h-[500px] bg-green-500/5 blur-[120px] -z-10 animate-pulse pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Title Section */}
@@ -88,12 +88,12 @@ const Education = () => {
                   <div className="p-3 bg-green-500/10 rounded-2xl text-green-500 group-hover:scale-110 transition-transform duration-500">
                     {edu.type === "Academic" ? <GraduationCap size={32} /> : <Code2 size={32} />}
                   </div>
-                  <span className="px-4 py-1.5 bg-green-500 text-black text-[10px] font-black rounded-lg uppercase tracking-[0.1em] shadow-lg">
+                  <span className="px-4 py-1.5 bg-green-500 text-black text-[10px] font-black rounded-lg uppercase tracking-[0.1em] shadow-lg max-w-full">
                     {edu.period}
                   </span>
                 </div>
 
-                <h4 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors italic">
+                <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors italic">
                   {edu.degree}
                 </h4>
                 <p className="text-lg text-gray-300 font-medium flex items-center gap-2 mb-4">
@@ -142,7 +142,7 @@ const Education = () => {
           ))}
         </motion.div>
       </div>
-    </section>
+    </div>
   )
 }
 

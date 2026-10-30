@@ -61,7 +61,7 @@ function App() {
   }, [])
 
   return (
-    <div className="relative bg-[#020617] text-white font-body selection:bg-green-500/30 selection:text-green-400 min-h-screen">
+    <div className="relative w-full max-w-full overflow-x-clip bg-[#020617] text-white font-body selection:bg-green-500/30 selection:text-green-400 min-h-screen">
 
       {/* 1. Global Utilities */}
       <CustomCursor />

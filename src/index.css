@@ -5,8 +5,32 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  /* Prevent horizontal scroll from decorative glows / off-screen animations.
+     `clip` (unlike `hidden`) doesn't create a scroll container, so sticky
+     positioning and Lenis keep working. `hidden` is the fallback. */
+  html, body {
+    max-width: 100%;
     overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  img, video {
+    max-width: 100%;
+  }
+
+  /* Long words / URLs never push the layout wider than the screen */
+  p, h1, h2, h3, h4, h5, a {
+    overflow-wrap: break-word;
+  }
+
+  /* Respect users who prefer less motion (also saves battery on mobile) */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
   
   /* Lenis essential styles */
@@ -25,7 +49,7 @@
   body {
     /* Font change kora holo */
     font-family: 'Inter', sans-serif;
-    @apply bg-[#020617] text-[#e2e8f0] overflow-x-hidden; /* Text color ektu off-white kora holo eye comfort er jonno */
+    @apply bg-[#020617] text-[#e2e8f0]; /* Text color ektu off-white kora holo eye comfort er jonno */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

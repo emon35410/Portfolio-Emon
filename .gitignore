@@ -1,3 +1,16 @@
 node_modules
 dist
 .env
+
+# Local agent & AI tooling
+.agent/
+.agents/
+.gemini/
+.gsd/
+.vscode/
+GSD-STYLE.md
+PROJECT_RULES.md
+VERSION
+adapters/
+model_capabilities.yaml
+scripts/

@@ -66,7 +66,7 @@ const Skills = () => {
   }
 
   return (
-    <section id="skills" className="py-20" ref={ref}>
+    <div className="py-20" ref={ref}>
       <div className="max-w-6xl mx-auto px-4">
         {/* Section Heading */}
         <motion.div
@@ -141,7 +141,7 @@ const Skills = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
