@@ -304,36 +304,51 @@ const Contact = () => {
             className="lg:col-span-5 space-y-6 md:space-y-8 min-w-0"
           >
             <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
-              {contactInfo.map((info) => {
-                const Wrapper = info.href ? motion.a : motion.div
-                return (
-                  <Wrapper
-                    key={info.label}
-                    variants={itemVariants}
-                    {...(info.href ? { href: info.href, 'aria-label': info.ariaLabel } : {})}
-                    className={`flex items-center gap-4 sm:gap-5 p-3 bg-white/[0.02] rounded-2xl border border-white/5 hover:border-green-500/30 transition-all group min-w-0 ${info.href ? 'cursor-pointer' : ''}`}
-                  >
-                    <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 shrink-0 group-hover:bg-green-500 group-hover:text-slate-950 transition-colors">
-                      <info.icon size={22} />
+              {contactInfo.map((info) => (
+                <motion.div
+                  key={info.label}
+                  variants={itemVariants}
+                  className="flex items-center justify-between gap-4 sm:gap-5 p-3 bg-white/[0.02] rounded-2xl border border-white/5 hover:border-green-500/30 transition-all group min-w-0"
+                >
+                  {info.href ? (
+                    <a
+                      href={info.href}
+                      aria-label={info.ariaLabel}
+                      className="flex items-center gap-4 sm:gap-5 min-w-0 flex-1 cursor-pointer"
+                    >
+                      <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 shrink-0 group-hover:bg-green-500 group-hover:text-slate-950 transition-colors">
+                        <info.icon size={22} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{info.label}</p>
+                        <p className="text-slate-200 font-medium text-sm md:text-base break-all group-hover:text-green-400 transition-colors">{info.value}</p>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="flex items-center gap-4 sm:gap-5 min-w-0 flex-1">
+                      <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 shrink-0">
+                        <info.icon size={22} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{info.label}</p>
+                        <p className="text-slate-200 font-medium text-sm md:text-base break-all">{info.value}</p>
+                      </div>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{info.label}</p>
-                      <p className="text-slate-200 font-medium text-sm md:text-base break-all group-hover:text-green-400 transition-colors">{info.value}</p>
-                    </div>
-                    {info.label === 'Email' && (
-                      <button
-                        type="button"
-                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); copyEmail() }}
-                        aria-label={copied ? 'Email copied' : 'Copy email address'}
-                        title={copied ? 'Copied!' : 'Copy email'}
-                        className="p-2 rounded-lg text-slate-500 hover:text-green-400 hover:bg-white/5 transition-colors shrink-0"
-                      >
-                        {copied ? <Check size={16} className="text-green-400" /> : <Copy size={16} />}
-                      </button>
-                    )}
-                  </Wrapper>
-                )
-              })}
+                  )}
+
+                  {info.label === 'Email' && (
+                    <button
+                      type="button"
+                      onClick={copyEmail}
+                      aria-label={copied ? 'Email copied' : 'Copy email address'}
+                      title={copied ? 'Copied!' : 'Copy email'}
+                      className="p-2 rounded-lg text-slate-500 hover:text-green-400 hover:bg-white/5 transition-colors shrink-0"
+                    >
+                      {copied ? <Check size={16} className="text-green-400" /> : <Copy size={16} />}
+                    </button>
+                  )}
+                </motion.div>
+              ))}
             </div>
 
             <motion.a

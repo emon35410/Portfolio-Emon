@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
 import Lenis from '@studio-freight/lenis'
 
 // Components
@@ -61,6 +61,7 @@ function App() {
   }, [])
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="relative w-full max-w-full overflow-x-clip bg-[#020617] text-white font-body selection:bg-green-500/30 selection:text-green-400 min-h-screen">
 
       {/* 1. Global Utilities */}
@@ -149,6 +150,7 @@ function App() {
         <Footer />
       </div>
     </div>
+    </MotionConfig>
   )
 }
 
