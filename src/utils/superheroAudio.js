@@ -1,12 +1,14 @@
 // High-Definition Superhero Audio Engine
-// Combines authentic MCU Thor thunder & Spider-Man web SFX with Web Audio fallbacks
+// Combines authentic MCU Thor thunder & weapons (Pure SFX - NO voice lines),
+// Spider-Man web SFX, & DC Batman cinematic movie scene audio (Nolan Batman Begins & Reeves The Batman).
 
 class SuperheroAudio {
   constructor() {
     this.enabled = typeof window !== 'undefined' ? (localStorage.getItem('emon_hero_sound') !== 'false') : true
     this.audioPool = {
       thor: ['/sounds/thor-thunder-summons.mp3', '/sounds/thor-hammer.mp3'],
-      spiderman: ['/sounds/spiderman-thwip.mp3']
+      spiderman: ['/sounds/spiderman-thwip.mp3'],
+      batman: ['/sounds/batman-im-batman.mp3', '/sounds/batman-im-vengeance.mp3']
     }
     this.preloadedAudio = {}
     this.initPool()
@@ -15,12 +17,7 @@ class SuperheroAudio {
   initPool() {
     if (typeof window === 'undefined') return
     try {
-      this.audioPool.thor.forEach(src => {
-        const audio = new Audio(src)
-        audio.preload = 'auto'
-        this.preloadedAudio[src] = audio
-      })
-      this.audioPool.spiderman.forEach(src => {
+      Object.values(this.audioPool).flat().forEach(src => {
         const audio = new Audio(src)
         audio.preload = 'auto'
         this.preloadedAudio[src] = audio
@@ -60,20 +57,26 @@ class SuperheroAudio {
     }
   }
 
-  // Play Authentic MCU Thor Lightning & Mjolnir Thunder Strike
-  playThunder() {
+  // Play Pure Thor Lightning & Hammer Thunder Strike (Zero voice lines, pure epic SFX)
+  playThunder(weaponType = null) {
     if (!this.enabled) return
 
-    // Pick between full epic strike & sharp hammer impact
-    const thorSound = Math.random() > 0.35
-      ? '/sounds/thor-thunder-summons.mp3'
-      : '/sounds/thor-hammer.mp3'
+    let thorSound
+    if (weaponType === 'mjolnir') {
+      thorSound = '/sounds/thor-hammer.mp3'
+    } else if (weaponType === 'stormbreaker') {
+      thorSound = '/sounds/thor-thunder-summons.mp3'
+    } else {
+      thorSound = Math.random() > 0.4
+        ? '/sounds/thor-thunder-summons.mp3'
+        : '/sounds/thor-hammer.mp3'
+    }
 
-    const played = this.playAudioFile(thorSound, 0.9)
+    const played = this.playAudioFile(thorSound, 0.95)
 
     // Fallback synthesizer if file fails
     if (!played) {
-      this.playSynthThunder()
+      this.playSynthThunder(weaponType)
     }
   }
 
@@ -86,8 +89,26 @@ class SuperheroAudio {
     }
   }
 
+  // Play Authentic Cinematic Batman Movie Scene Audio
+  // 1st click: Christopher Nolan's Batman Begins (Christian Bale - Carmine Falcone scene & "I'm Batman!")
+  // 2nd click: Matt Reeves' The Batman (Robert Pattinson - Subway confrontation & "I'm Vengeance")
+  playBatman(quoteIndex = 0) {
+    if (!this.enabled) return
+
+    const isFirstClick = (quoteIndex % 2 === 0)
+    const movieFile = isFirstClick
+      ? '/sounds/batman-im-batman.mp3'
+      : '/sounds/batman-im-vengeance.mp3'
+
+    const played = this.playAudioFile(movieFile, 1.0)
+
+    if (!played) {
+      this.playSynthBatman(quoteIndex)
+    }
+  }
+
   // Web Audio API Synthesizer Fallbacks
-  playSynthThunder() {
+  playSynthThunder(weaponType = null) {
     if (typeof window === 'undefined') return
     const AudioCtx = window.AudioContext || window.webkitAudioContext
     if (!AudioCtx) return
@@ -96,16 +117,16 @@ class SuperheroAudio {
 
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
-    osc.type = 'sawtooth'
-    osc.frequency.setValueAtTime(600, now)
-    osc.frequency.exponentialRampToValueAtTime(60, now + 0.3)
-    gain.gain.setValueAtTime(0.3, now)
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4)
+    osc.type = weaponType === 'stormbreaker' ? 'triangle' : 'sawtooth'
+    osc.frequency.setValueAtTime(weaponType === 'stormbreaker' ? 450 : 650, now)
+    osc.frequency.exponentialRampToValueAtTime(50, now + 0.35)
+    gain.gain.setValueAtTime(0.35, now)
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45)
 
     osc.connect(gain)
     gain.connect(ctx.destination)
     osc.start(now)
-    osc.stop(now + 0.4)
+    osc.stop(now + 0.45)
   }
 
   playSynthWebThwip() {
@@ -127,6 +148,49 @@ class SuperheroAudio {
     gain.connect(ctx.destination)
     osc.start(now)
     osc.stop(now + 0.1)
+  }
+
+  playSynthBatman(quoteIndex = 0) {
+    if (typeof window === 'undefined') return
+
+    // 1. Web Audio sub-bass whoosh / bat strike
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext
+      if (AudioCtx) {
+        const ctx = new AudioCtx()
+        const now = ctx.currentTime
+
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(quoteIndex % 2 === 0 ? 110 : 80, now)
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.6)
+        gain.gain.setValueAtTime(0.4, now)
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6)
+
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.start(now)
+        osc.stop(now + 0.6)
+      }
+    } catch {
+      // ignore
+    }
+
+    // 2. Speech Synthesis fallback
+    try {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel()
+        const phrase = quoteIndex % 2 === 0 ? "I'm Batman." : "I'm Vengeance."
+        const utterance = new SpeechSynthesisUtterance(phrase)
+        utterance.rate = 0.85
+        utterance.pitch = 0.45
+        utterance.volume = 1.0
+        window.speechSynthesis.speak(utterance)
+      }
+    } catch {
+      // ignore
+    }
   }
 }
 

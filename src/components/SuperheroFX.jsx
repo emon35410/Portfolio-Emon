@@ -4,7 +4,7 @@ import { Zap, Volume2, VolumeX, Shield, Sparkles, X, ChevronRight } from 'lucide
 import { superheroAudio } from '../utils/superheroAudio'
 
 export const SuperheroFX = () => {
-  // Modes: 'cyber' (default / clean), 'thor', 'spiderman'
+  // Modes: 'cyber' (default / clean), 'thor', 'spiderman', 'batman'
   const [mode, setMode] = useState(() => {
     return localStorage.getItem('emon_hero_mode') || 'cyber'
   })
@@ -12,15 +12,19 @@ export const SuperheroFX = () => {
     return localStorage.getItem('emon_hero_sound') !== 'false'
   })
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [flash, setFlash] = useState(null) // screen flash for lightning
+  const [flash, setFlash] = useState(null) // screen flash for lightning or bat-signal
   const [spiderSenseActive, setSpiderSenseActive] = useState(false)
   const [mousePos, setMousePos] = useState({ x: -100, y: -100 })
 
+  const batmanClickCount = useRef(0)
+  const thorClickCount = useRef(0)
   const canvasRef = useRef(null)
   const activeEffectsRef = useRef({
     lightnings: [],
     sparks: [],
     webs: [],
+    bats: [],
+    batSignals: [],
     particles: []
   })
   const animFrameId = useRef(null)
@@ -30,6 +34,12 @@ export const SuperheroFX = () => {
     setMode(newMode)
     localStorage.setItem('emon_hero_mode', newMode)
     window.dispatchEvent(new CustomEvent('hero-mode-changed', { detail: newMode }))
+    if (newMode === 'batman') {
+      batmanClickCount.current = 0 // Reset click count so 1st click is always "I'm Batman"
+    }
+    if (newMode === 'thor') {
+      thorClickCount.current = 0
+    }
     if (newMode !== 'cyber') {
       superheroAudio.enableSound()
       setSoundEnabled(true)
@@ -46,7 +56,7 @@ export const SuperheroFX = () => {
   // Global event listener for external triggers (e.g., TerminalModal commands)
   useEffect(() => {
     const handleSetHeroMode = (e) => {
-      if (['cyber', 'thor', 'spiderman'].includes(e.detail)) {
+      if (['cyber', 'thor', 'spiderman', 'batman'].includes(e.detail)) {
         switchMode(e.detail)
       }
     }
@@ -60,6 +70,8 @@ export const SuperheroFX = () => {
         switchMode('thor')
       } else if (e.key === 's' || e.key === 'S') {
         switchMode('spiderman')
+      } else if (e.key === 'b' || e.key === 'B') {
+        switchMode('batman')
       } else if (e.key === 'm' || e.key === 'M') {
         switchMode('cyber')
       }
@@ -186,7 +198,6 @@ export const SuperheroFX = () => {
 
     // Generate radial web spokes & spiral web rings around target point
     const spokes = []
-    const rings = []
     const spokeCount = 8
     const maxRadius = Math.min(180, Math.max(90, Math.hypot(targetX - sortedAnchors[0].x, targetY - sortedAnchors[0].y) * 0.35))
 
@@ -199,12 +210,12 @@ export const SuperheroFX = () => {
     }
 
     const ringCount = 4
+    const rings = []
     for (let r = 1; r <= ringCount; r++) {
       const radius = (r / ringCount) * maxRadius
       const ringPoints = []
       for (let i = 0; i < spokeCount; i++) {
         const angle = (i / spokeCount) * Math.PI * 2
-        // Add subtle droop/sag
         const sag = 0.92
         ringPoints.push({
           x: targetX + Math.cos(angle) * radius * sag,
@@ -221,7 +232,7 @@ export const SuperheroFX = () => {
       spokes,
       rings,
       alpha: 1,
-      decay: 0.015, // lasts ~1.5 - 2s
+      decay: 0.015,
       sagOffset: Math.random() * 8
     })
 
@@ -240,6 +251,62 @@ export const SuperheroFX = () => {
     }
   }, [])
 
+  // Procedural Bat-Signal & Bat Swarm Generator (The Batman)
+  const createBatSignalStrike = useCallback((targetX, targetY, theme = 'gold') => {
+    const isVengeance = theme === 'crimson'
+
+    // 1. Expanding Bat-Signal Oval Beacon
+    activeEffectsRef.current.batSignals.push({
+      x: targetX,
+      y: targetY,
+      radius: 20,
+      expandSpeed: isVengeance ? 9 : 7,
+      alpha: 1,
+      decay: 0.018,
+      theme,
+      color: isVengeance ? '#ef4444' : '#fbbf24'
+    })
+
+    // 2. Swarm of bats bursting out from click point
+    const batCount = isVengeance ? 16 : 14
+    for (let i = 0; i < batCount; i++) {
+      const angle = (i / batCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.5
+      const speed = 4 + Math.random() * 8
+      activeEffectsRef.current.bats.push({
+        x: targetX + (Math.random() - 0.5) * 16,
+        y: targetY + (Math.random() - 0.5) * 16,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 1.5,
+        size: 0.85 + Math.random() * 1.3,
+        flapPhase: Math.random() * Math.PI * 2,
+        flapSpeed: 0.35 + Math.random() * 0.25,
+        alpha: 1,
+        decay: 0.014 + Math.random() * 0.008,
+        color: isVengeance ? '#260404' : '#0a0f1d',
+        glowColor: isVengeance ? 'rgba(239, 68, 68, 0.8)' : 'rgba(245, 158, 11, 0.8)'
+      })
+    }
+
+    // 3. Smoke / Spark Particles
+    const sparkCount = isVengeance ? 28 : 22
+    for (let i = 0; i < sparkCount; i++) {
+      const angle = Math.random() * Math.PI * 2
+      const speed = 2 + Math.random() * 7
+      activeEffectsRef.current.sparks.push({
+        x: targetX,
+        y: targetY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        alpha: 1,
+        life: 0.02 + Math.random() * 0.03,
+        size: 1.5 + Math.random() * 2.5,
+        color: isVengeance
+          ? (Math.random() > 0.4 ? '#ef4444' : '#fee2e2')
+          : (Math.random() > 0.4 ? '#fbbf24' : '#ffffff')
+      })
+    }
+  }, [])
+
   // Canvas Click Handler
   useEffect(() => {
     const handleGlobalClick = (e) => {
@@ -250,30 +317,50 @@ export const SuperheroFX = () => {
       const clickY = e.clientY
 
       if (mode === 'thor') {
-        // Trigger Thor thunder & lightning
-        superheroAudio.playThunder()
-        setFlash('thor')
-        setTimeout(() => setFlash(null), 70)
+        // Trigger Thor: Alternates Mjolnir & Stormbreaker thunder/hammer SFX (pure SFX, NO voice)
+        const weapon = (thorClickCount.current % 2 === 0) ? 'mjolnir' : 'stormbreaker'
+        thorClickCount.current += 1
 
-        // Bolt origin: cloud from top
+        superheroAudio.playThunder(weapon)
+        setFlash('thor')
+        setTimeout(() => setFlash(null), 75)
+
         const startX = clickX + (Math.random() - 0.5) * 300
         const startY = 0
-        createLightningBolt(startX, startY, clickX, clickY, 2)
+        createLightningBolt(startX, startY, clickX, clickY, weapon === 'stormbreaker' ? 3 : 2)
       } else if (mode === 'spiderman') {
         // Trigger Spider-Man web thwip
         superheroAudio.playWebThwip()
         createWebStrike(clickX, clickY)
+      } else if (mode === 'batman') {
+        // Trigger Batman: 1st click = "I'm Batman" (Nolan), 2nd click = "I'm Vengeance" (Reeves)
+        const currentCount = batmanClickCount.current
+        batmanClickCount.current += 1
+        const quoteIndex = currentCount % 2 // 0: 1st click, 1: 2nd click
+
+        superheroAudio.playBatman(quoteIndex)
+
+        if (quoteIndex === 0) {
+          // 1st click: Christopher Nolan - Batman Begins ("I'm Batman")
+          setFlash('batman-begins')
+          setTimeout(() => setFlash(null), 90)
+          createBatSignalStrike(clickX, clickY, 'gold')
+        } else {
+          // 2nd click: Matt Reeves - The Batman ("I'm Vengeance")
+          setFlash('batman-vengeance')
+          setTimeout(() => setFlash(null), 90)
+          createBatSignalStrike(clickX, clickY, 'crimson')
+        }
       }
     }
 
     window.addEventListener('mousedown', handleGlobalClick)
     return () => window.removeEventListener('mousedown', handleGlobalClick)
-  }, [mode, createLightningBolt, createWebStrike])
+  }, [mode, createLightningBolt, createWebStrike, createBatSignalStrike])
 
   // Continuous Canvas Animation Loop (60FPS)
   useEffect(() => {
     if (mode === 'cyber') {
-      // Clear canvas and cancel loop if in standard cyber mode
       const canvas = canvasRef.current
       if (canvas) {
         const ctx = canvas.getContext('2d')
@@ -387,7 +474,117 @@ export const SuperheroFX = () => {
         }
       }
 
-      // 3. RENDER SPARKS & PARTICLES
+      // 3. RENDER BATMAN EFFECTS (Bat-Signals & Flying Bat Swarms)
+      if (mode === 'batman') {
+        // 3a. Bat-Signals (Expanding Oval Beacon & Glowing Insignia)
+        for (let i = fx.batSignals.length - 1; i >= 0; i--) {
+          const signal = fx.batSignals[i]
+          signal.radius += signal.expandSpeed
+          signal.alpha -= signal.decay
+
+          if (signal.alpha <= 0) {
+            fx.batSignals.splice(i, 1)
+            continue
+          }
+
+          ctx.save()
+          ctx.translate(signal.x, signal.y)
+          ctx.globalAlpha = Math.max(0, signal.alpha)
+          ctx.shadowColor = signal.color
+          ctx.shadowBlur = 24
+
+          // Outer beacon ring
+          ctx.strokeStyle = signal.color
+          ctx.lineWidth = 2.5
+          ctx.beginPath()
+          ctx.ellipse(0, 0, signal.radius * 1.35, signal.radius * 0.85, 0, 0, Math.PI * 2)
+          ctx.stroke()
+
+          // Inner glow fill
+          ctx.fillStyle = signal.theme === 'crimson' ? 'rgba(239, 68, 68, 0.12)' : 'rgba(245, 158, 11, 0.12)'
+          ctx.fill()
+
+          // Bat Insignia Emblem in Center
+          const emblemScale = signal.radius / 65
+          if (emblemScale > 0.25) {
+            ctx.save()
+            const s = Math.min(emblemScale, 1.8)
+            ctx.scale(s, s)
+            ctx.fillStyle = signal.theme === 'crimson' ? '#ef4444' : '#fbbf24'
+            ctx.shadowColor = signal.color
+            ctx.shadowBlur = 18
+
+            ctx.beginPath()
+            ctx.moveTo(0, -9)
+            ctx.lineTo(3, -15) // ear right
+            ctx.lineTo(5, -8)
+            ctx.lineTo(13, -11)
+            ctx.lineTo(25, -15) // right wingtip
+            ctx.quadraticCurveTo(18, 2, 8, 4)
+            ctx.quadraticCurveTo(4, 9, 0, 13) // tail
+            ctx.quadraticCurveTo(-4, 9, -8, 4)
+            ctx.quadraticCurveTo(-18, 2, -25, -15) // left wingtip
+            ctx.lineTo(-13, -11)
+            ctx.lineTo(-5, -8)
+            ctx.lineTo(-3, -15) // ear left
+            ctx.closePath()
+            ctx.fill()
+            ctx.restore()
+          }
+
+          ctx.restore()
+        }
+
+        // 3b. Flying Bats with animated wing flap
+        for (let i = fx.bats.length - 1; i >= 0; i--) {
+          const bat = fx.bats[i]
+          bat.x += bat.vx
+          bat.y += bat.vy
+          bat.vx *= 0.985
+          bat.vy += 0.06
+          bat.flapPhase += bat.flapSpeed
+          bat.alpha -= bat.decay
+
+          if (bat.alpha <= 0) {
+            fx.bats.splice(i, 1)
+            continue
+          }
+
+          ctx.save()
+          ctx.translate(bat.x, bat.y)
+          const motionAngle = Math.atan2(bat.vy, bat.vx)
+          ctx.rotate(motionAngle + Math.PI / 2)
+          ctx.scale(bat.size, bat.size)
+          ctx.globalAlpha = Math.max(0, bat.alpha)
+
+          // Wing flapping calculation
+          const wingY = Math.sin(bat.flapPhase) * 6
+
+          ctx.shadowColor = bat.glowColor
+          ctx.shadowBlur = 12
+          ctx.fillStyle = bat.color
+
+          ctx.beginPath()
+          ctx.moveTo(0, -5)
+          ctx.lineTo(2, -9)
+          ctx.lineTo(3.5, -4.5)
+          ctx.lineTo(8, -7 + wingY)
+          ctx.lineTo(16, -11 + wingY * 1.4)
+          ctx.quadraticCurveTo(11, 2 + wingY, 5, 2.5)
+          ctx.quadraticCurveTo(2.5, 5.5, 0, 7.5)
+          ctx.quadraticCurveTo(-2.5, 5.5, -5, 2.5)
+          ctx.quadraticCurveTo(-11, 2 + wingY, -16, -11 + wingY * 1.4)
+          ctx.lineTo(-8, -7 + wingY)
+          ctx.lineTo(-3.5, -4.5)
+          ctx.lineTo(-2, -9)
+          ctx.closePath()
+          ctx.fill()
+
+          ctx.restore()
+        }
+      }
+
+      // 4. RENDER SPARKS & PARTICLES
       for (let i = fx.sparks.length - 1; i >= 0; i--) {
         const spark = fx.sparks[i]
         spark.x += spark.vx
@@ -403,7 +600,7 @@ export const SuperheroFX = () => {
 
         ctx.save()
         ctx.fillStyle = spark.color
-        ctx.globalAlpha = spark.alpha
+        ctx.globalAlpha = Math.max(0, spark.alpha)
         ctx.shadowColor = spark.color
         ctx.shadowBlur = 8
         ctx.beginPath()
@@ -431,7 +628,7 @@ export const SuperheroFX = () => {
         className="fixed inset-0 pointer-events-none z-[80] overflow-hidden"
       />
 
-      {/* 2. Thor Lightning Screen Flash Overlay */}
+      {/* 2. Thor / Batman Screen Flash Overlay */}
       <AnimatePresence>
         {flash === 'thor' && (
           <motion.div
@@ -440,6 +637,24 @@ export const SuperheroFX = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
             className="fixed inset-0 pointer-events-none z-[75] bg-sky-400/20"
+          />
+        )}
+        {flash === 'batman-begins' && (
+          <motion.div
+            initial={{ opacity: 0.3 }}
+            animate={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 pointer-events-none z-[75] bg-amber-500/20 backdrop-blur-[1px]"
+          />
+        )}
+        {flash === 'batman-vengeance' && (
+          <motion.div
+            initial={{ opacity: 0.35 }}
+            animate={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 pointer-events-none z-[75] bg-red-600/25 backdrop-blur-[1px]"
           />
         )}
       </AnimatePresence>
@@ -457,7 +672,6 @@ export const SuperheroFX = () => {
             }}
             className="fixed pointer-events-none z-[85] -translate-x-1/2 -translate-y-1/2"
           >
-            {/* Comic style sense lines */}
             <div className="w-16 h-16 rounded-full border-2 border-red-500/80 shadow-[0_0_15px_rgba(239,68,68,0.8)]" />
             <div className="absolute inset-[-6px] rounded-full border border-yellow-400/60 animate-ping" />
           </motion.div>
@@ -471,6 +685,9 @@ export const SuperheroFX = () => {
         )}
         {mode === 'spiderman' && (
           <div className="absolute inset-0 bg-gradient-to-b from-red-950/15 via-transparent to-blue-950/15" />
+        )}
+        {mode === 'batman' && (
+          <div className="absolute inset-0 bg-gradient-to-b from-amber-950/15 via-black/40 to-slate-950/30" />
         )}
       </div>
 
@@ -488,11 +705,11 @@ export const SuperheroFX = () => {
               exit={{ scale: 0.8, opacity: 0 }}
               onClick={() => setIsCollapsed(false)}
               className="group flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-slate-900/90 border border-white/15 backdrop-blur-xl shadow-2xl text-xs font-mono text-white/90 hover:border-green-500/50 hover:shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all cursor-pointer"
-              title="Open Hero Mode Selector (Press T for Thor, S for Spider-Man, M for Matrix)"
+              title="Open Hero Mode Selector (Press T for Thor, S for Spider-Man, B for Batman, M for Matrix)"
             >
               <Sparkles className="w-4 h-4 text-green-400 animate-spin" style={{ animationDuration: '6s' }} />
               <span className="font-semibold uppercase tracking-wider">
-                {mode === 'cyber' ? 'CYBER' : mode === 'thor' ? '⚡ THOR' : '🕷️ SPIDER'}
+                {mode === 'cyber' ? 'CYBER' : mode === 'thor' ? '⚡ THOR' : mode === 'spiderman' ? '🕷️ SPIDER' : '🦇 BATMAN'}
               </span>
               <ChevronRight className="w-3.5 h-3.5 text-white/50 group-hover:translate-x-0.5 transition-transform" />
             </motion.button>
@@ -506,6 +723,7 @@ export const SuperheroFX = () => {
             >
               {/* Cyber Mode (Default Clean) */}
               <button
+                type="button"
                 onClick={() => switchMode('cyber')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
                   mode === 'cyber'
@@ -520,13 +738,14 @@ export const SuperheroFX = () => {
 
               {/* Thor Mode */}
               <button
+                type="button"
                 onClick={() => switchMode('thor')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
                   mode === 'thor'
                     ? 'bg-sky-500/25 text-sky-300 border border-sky-400/50 shadow-[0_0_20px_rgba(56,189,248,0.4)] font-bold'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
-                title="Thor: God of Thunder Mode (Shortcut: T). Click anywhere for lightning strikes!"
+                title="Thor: God of Thunder Mode (Shortcut: T). Click anywhere for Mjolnir & Stormbreaker thunder hammer strikes (Pure SFX)!"
               >
                 <Zap className="w-3.5 h-3.5 text-sky-400" />
                 <span>Thor</span>
@@ -534,6 +753,7 @@ export const SuperheroFX = () => {
 
               {/* Spider-Man Mode */}
               <button
+                type="button"
                 onClick={() => switchMode('spiderman')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
                   mode === 'spiderman'
@@ -546,23 +766,40 @@ export const SuperheroFX = () => {
                 <span>Spidey</span>
               </button>
 
+              {/* The Batman Mode */}
+              <button
+                type="button"
+                onClick={() => switchMode('batman')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
+                  mode === 'batman'
+                    ? 'bg-amber-500/25 text-amber-300 border border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.4)] font-bold'
+                    : 'text-white/60 hover:text-white hover:bg-white/5'
+                }`}
+                title="The Batman: Dark Knight / Vengeance Mode (Shortcut: B). 1st Click: 'I'm Batman' + Batwing Whoosh, 2nd Click: 'I'm Vengeance' + Combat Strike!"
+              >
+                <span className="text-sm leading-none">🦇</span>
+                <span>Batman</span>
+              </button>
+
               <div className="w-[1px] h-4 bg-white/15 mx-0.5" />
 
-              {/* Sound FX Toggle (Muted by default) */}
+              {/* Sound FX Toggle */}
               <button
+                type="button"
                 onClick={handleToggleSound}
                 className={`p-1.5 rounded-lg transition-all cursor-pointer ${
                   soundEnabled
                     ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 shadow-[0_0_10px_rgba(234,179,8,0.3)]'
                     : 'text-white/40 hover:text-white/70 hover:bg-white/5'
                 }`}
-                title={soundEnabled ? 'Sound FX: ON (Click to mute)' : 'Sound FX: Muted (Click to enable audio synthesis)'}
+                title={soundEnabled ? 'Sound FX: ON (Click to mute)' : 'Sound FX: Muted (Click to enable audio)'}
               >
                 {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
               </button>
 
               {/* Minimize Widget */}
               <button
+                type="button"
                 onClick={() => setIsCollapsed(true)}
                 className="p-1.5 text-white/30 hover:text-white/80 rounded-lg hover:bg-white/5 transition-all cursor-pointer"
                 title="Minimize hero selector"

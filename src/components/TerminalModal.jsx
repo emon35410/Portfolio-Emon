@@ -12,6 +12,7 @@ const COMMANDS = {
   • contact     - Contact details & social links
   • thor        - ⚡ Activate Thor God of Thunder FX
   • spiderman   - 🕷️ Activate Spider-Man Web Slinger FX
+  • batman      - 🦇 Activate The Batman / Vengeance FX
   • matrix      - 🟢 Restore Default Cyber Aesthetic
   • clear       - Clear the terminal console
   • exit        - Close the interactive terminal`,
@@ -72,6 +73,24 @@ ENGINEERING & TOOLS:
   Friendly Neighborhood Spider-Man Mode ACTIVATED!
   "With great power comes great responsibility."
   Click or drag anywhere to shoot web strands!`,
+
+  batman: `🦇 [GOTHAM PROTOCOL]
+  The Dark Knight / The Batman Mode ACTIVATED!
+  "It's not who I am underneath, but what I do that defines me."
+  • 1st Click: "I'm Batman" (Christopher Nolan's Bat-Signal Strike)
+  • 2nd Click: "I'm Vengeance" (Matt Reeves' Crimson Shadow Slash)`,
+
+  vengeance: `🦇 [GOTHAM PROTOCOL]
+  The Dark Knight / The Batman Mode ACTIVATED!
+  "It's not who I am underneath, but what I do that defines me."
+  • 1st Click: "I'm Batman" (Christopher Nolan's Bat-Signal Strike)
+  • 2nd Click: "I'm Vengeance" (Matt Reeves' Crimson Shadow Slash)`,
+
+  darkknight: `🦇 [GOTHAM PROTOCOL]
+  The Dark Knight / The Batman Mode ACTIVATED!
+  "It's not who I am underneath, but what I do that defines me."
+  • 1st Click: "I'm Batman" (Christopher Nolan's Bat-Signal Strike)
+  • 2nd Click: "I'm Vengeance" (Matt Reeves' Crimson Shadow Slash)`,
 
   matrix: `🟢 [CYBER PROTOCOL]
   Default Cyber Matrix aesthetic restored.`,
@@ -146,6 +165,8 @@ export const TerminalModal = () => {
         window.dispatchEvent(new CustomEvent('set-hero-mode', { detail: 'thor' }))
       } else if (cmd === 'spiderman' || cmd === 'spidey') {
         window.dispatchEvent(new CustomEvent('set-hero-mode', { detail: 'spiderman' }))
+      } else if (cmd === 'batman' || cmd === 'vengeance' || cmd === 'darkknight') {
+        window.dispatchEvent(new CustomEvent('set-hero-mode', { detail: 'batman' }))
       } else if (cmd === 'matrix' || cmd === 'cyber') {
         window.dispatchEvent(new CustomEvent('set-hero-mode', { detail: 'cyber' }))
       }

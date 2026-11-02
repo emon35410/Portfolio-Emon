@@ -67,6 +67,12 @@ const CustomCursor = () => {
       glowHover: 'bg-red-500/25',
       glowNormal: 'bg-red-500/10',
       ring: 'border-red-500/40'
+    },
+    batman: {
+      dot: 'bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.9)]',
+      glowHover: 'bg-amber-400/25',
+      glowNormal: 'bg-amber-400/10',
+      ring: 'border-amber-400/40'
     }
   };
 
