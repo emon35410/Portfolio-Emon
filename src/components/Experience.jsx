@@ -17,7 +17,7 @@ const experiences = [
   {
     role: "School Teacher",
     company: "Shahid Cadet School & College",
-    period: "Sep 2023 — Present",
+    period: "Oct 2025 — Present",
     isCurrent: true,
     icon: GraduationCap,
     description:
@@ -27,7 +27,10 @@ const experiences = [
       { text: "Managed student academic tracking, assessments, and structured records.", icon: Database },
       { text: "Built exceptional public speaking, interpersonal, and team leadership skills.", icon: Users }
     ],
-    skills: ["Leadership", "Public Speaking", "Instructional Design", "Mentorship", "Classroom Management"]
+    skills: ["ICT & Programming Concepts",
+  "Higher Mathematics & Logic",
+  "Physics & Analytical Problem Solving",
+  "Instructional Design & Mentorship"]
   },
   {
     role: "Medical Billing Agent",

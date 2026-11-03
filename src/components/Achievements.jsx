@@ -17,13 +17,7 @@ const Achievements = () => {
   const [itemsPerPage, setItemsPerPage] = useState(3)
 
   const data = [
-    {
-      title: "Complete Web Development (Level 1)",
-      provider: "Programming Hero",
-      icon: <Layout className="text-violet-400" size={20} />,
-      image: webDevCert,
-      desc: "Specialized in modern frontend development, mastering HTML5, CSS3, and JavaScript. Built multiple responsive projects using React, focusing on component-based architecture and interactive interfaces."
-    },
+    
     {
       title: "Research 360°: A Complete Guide",
       provider: "Metropolitan University (MURS)",
@@ -37,6 +31,13 @@ const Achievements = () => {
       icon: <Microscope className="text-amber-400" size={20} />,
       image: researchCert,
       desc: "Successfully completed an intensive research workshop covering fundamental ethics, systematic literature review, and the strategic process of academic publishing in high-impact journals."
+    },
+    {
+      title: "Complete Web Development (Level 1)",
+      provider: "Programming Hero",
+      icon: <Layout className="text-violet-400" size={20} />,
+      image: webDevCert,
+      desc: "Specialized in modern frontend development, mastering HTML5, CSS3, and JavaScript. Built multiple responsive projects using React, focusing on component-based architecture and interactive interfaces."
     },
     {
       title: "Innovation Through Research",
