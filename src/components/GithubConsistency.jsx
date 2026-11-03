@@ -164,7 +164,7 @@ export const GithubConsistency = () => {
       const month = d.getUTCMonth();
 
       // Check if this week starts or introduces a new month
-      if (month !== lastMonth && currentWeek.length === 0) {
+      if (month !== lastMonth) {
         labels.push({
           weekIndex: resultWeeks.length,
           name: MONTH_NAMES[month]
@@ -342,33 +342,35 @@ export const GithubConsistency = () => {
             </span>
           </div>
 
-          {/* Heatmap Matrix with Horizontal Scroll */}
+          {/* Heatmap Matrix with Horizontal Scroll & Center Alignment */}
           <div
             ref={scrollContainerRef}
-            className="overflow-x-auto pb-4 pt-1 scrollbar-thin scrollbar-thumb-emerald-500/20 scrollbar-track-transparent"
+            className="w-full overflow-x-auto pb-4 pt-1 flex justify-start md:justify-center scrollbar-thin scrollbar-thumb-emerald-500/20 scrollbar-track-transparent"
           >
-            <div className="inline-block min-w-full">
+            <div className="inline-block mx-auto">
               {/* Month Header Row */}
-              <div className="flex ml-8 text-[11px] text-gray-400 mb-2 font-mono h-4">
-                {monthLabels.map((lbl, idx) => (
-                  <div
-                    key={`${lbl.name}-${idx}`}
-                    style={{
-                      position: "relative",
-                      left: `${lbl.weekIndex * 15}px`,
-                      marginRight: "-15px"
-                    }}
-                    className="text-gray-400 font-semibold"
-                  >
-                    {lbl.name}
-                  </div>
-                ))}
+              <div className="flex gap-[3px] sm:gap-[3.5px] lg:gap-[4px] ml-[22px] sm:ml-[26px] lg:ml-[30px] mb-2 text-[10px] sm:text-[11px] font-mono text-gray-400 h-4">
+                {weeks.map((_, wIdx) => {
+                  const label = monthLabels.find((l) => l.weekIndex === wIdx);
+                  return (
+                    <div
+                      key={wIdx}
+                      className="w-[12px] sm:w-[13.5px] lg:w-[15px] overflow-visible text-left whitespace-nowrap"
+                    >
+                      {label && (
+                        <span className="text-gray-400 font-semibold tracking-wide">
+                          {label.name}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Day Labels + Grid Matrix */}
               <div className="flex gap-2">
                 {/* Left Day of Week Labels */}
-                <div className="flex flex-col justify-between text-[10px] font-mono text-gray-400 pr-1 select-none h-[105px]">
+                <div className="flex flex-col justify-between text-[10px] font-mono text-gray-400 pr-1 select-none w-[18px] sm:w-[22px] lg:w-[26px] h-[102px] sm:h-[115px] lg:h-[129px]">
                   {DAY_LABELS.map((d) => (
                     <span key={d.day} className="h-3 leading-3">
                       {d.label}
@@ -377,15 +379,18 @@ export const GithubConsistency = () => {
                 </div>
 
                 {/* Weeks Grid Columns */}
-                <div className="flex gap-[3.5px]">
+                <div className="flex gap-[3px] sm:gap-[3.5px] lg:gap-[4px]">
                   {weeks.map((week, wIdx) => (
-                    <div key={wIdx} className="flex flex-col gap-[3.5px]">
+                    <div
+                      key={wIdx}
+                      className="flex flex-col gap-[3px] sm:gap-[3.5px] lg:gap-[4px]"
+                    >
                       {week.map((day, dIdx) => {
                         if (!day) {
                           return (
                             <div
                               key={`empty-${dIdx}`}
-                              className="w-[11.5px] h-[11.5px] rounded-[2.5px] opacity-0 pointer-events-none"
+                              className="w-[12px] h-[12px] sm:w-[13.5px] sm:h-[13.5px] lg:w-[15px] lg:h-[15px] rounded-[2.5px] opacity-0 pointer-events-none"
                             />
                           );
                         }
@@ -398,7 +403,7 @@ export const GithubConsistency = () => {
                             key={day.date}
                             onMouseEnter={() => setHoveredDay(day)}
                             onMouseLeave={() => setHoveredDay(null)}
-                            className={`w-[11.5px] h-[11.5px] rounded-[2.5px] border transition-transform duration-150 hover:scale-150 hover:z-20 cursor-pointer ${colorClass}`}
+                            className={`w-[12px] h-[12px] sm:w-[13.5px] sm:h-[13.5px] lg:w-[15px] lg:h-[15px] rounded-[2.5px] border transition-transform duration-150 hover:scale-150 hover:z-20 cursor-pointer ${colorClass}`}
                           />
                         );
                       })}
