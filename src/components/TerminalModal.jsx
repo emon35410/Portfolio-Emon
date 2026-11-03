@@ -190,7 +190,7 @@ export const TerminalModal = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-40 flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#0a101e]/90 hover:bg-[#0f172a] border border-green-500/30 hover:border-green-500/60 shadow-lg shadow-green-500/10 text-xs font-mono text-green-400 backdrop-blur-md transition-all group"
+        className="fixed bottom-[58px] sm:bottom-6 left-3 sm:left-6 z-40 flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2.5 rounded-full bg-[#0a101e]/90 hover:bg-[#0f172a] border border-green-500/30 hover:border-green-500/60 shadow-lg shadow-green-500/10 text-xs font-mono text-green-400 backdrop-blur-md transition-all group"
         aria-label="Open Interactive Terminal"
       >
         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />

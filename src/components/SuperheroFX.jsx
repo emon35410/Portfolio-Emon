@@ -694,7 +694,7 @@ export const SuperheroFX = () => {
       {/* 5. Floating Hero Controller Widget */}
       <div
         id="hero-mode-widget"
-        className="fixed bottom-4 sm:bottom-20 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-6 z-[9990] flex items-center justify-center select-none max-w-[calc(100vw-16px)]"
+        className="fixed bottom-3 sm:bottom-20 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-6 z-[9990] flex items-center justify-center select-none max-w-[calc(100vw-16px)]"
       >
         <AnimatePresence mode="wait">
           {isCollapsed ? (
