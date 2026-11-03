@@ -180,7 +180,6 @@ const Hero = () => {
                 alt="Mahmudul Hasan Emon, MERN Stack Developer"
                 width={320}
                 height={460}
-                fetchPriority="high"
                 decoding="async"
                 className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700"
               />

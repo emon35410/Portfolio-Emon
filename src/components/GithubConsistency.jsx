@@ -67,13 +67,6 @@ export const GithubConsistency = () => {
     };
   }, []);
 
-  // Auto-scroll heatmap to current (latest) activity on mobile screens
-  useEffect(() => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
-    }
-  }, [weeks]);
-
   // Sorted list of all contributions chronologically
   const sortedContributions = useMemo(() => {
     if (!data?.contributions) return [];
@@ -196,6 +189,13 @@ export const GithubConsistency = () => {
 
     return { weeks: resultWeeks, monthLabels: labels };
   }, [currentContributions]);
+
+  // Auto-scroll heatmap to current (latest) activity on mobile screens
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+    }
+  }, [weeks]);
 
   // Format date helper: "2026-03-24" -> "March 24, 2026"
   const formatDate = (dateStr) => {
