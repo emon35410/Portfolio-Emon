@@ -14,6 +14,7 @@ import mockflowImg from "../assets/projects/mockflow.webp";
 import vortixImg from "../assets/projects/vortix.webp";
 import { SpotlightCard } from "./SpotlightCard";
 import { HackerText } from "./HackerText";
+import { GithubConsistency } from "./GithubConsistency";
 
 // Image with skeleton while loading and a graceful fallback if it fails
 const ProjectImage = ({ src, alt }) => {
@@ -295,6 +296,9 @@ const Projects = () => {
           ))}
         </motion.div>
         )}
+
+        {/* GitHub Consistency & Repository Activity Card */}
+        <GithubConsistency />
       </div>
     </div>
   );
