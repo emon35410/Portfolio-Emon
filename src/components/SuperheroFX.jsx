@@ -694,7 +694,7 @@ export const SuperheroFX = () => {
       {/* 5. Floating Hero Controller Widget */}
       <div
         id="hero-mode-widget"
-        className="fixed bottom-20 left-6 z-[9990] flex items-center select-none"
+        className="fixed bottom-4 sm:bottom-20 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-6 z-[9990] flex items-center justify-center select-none max-w-[calc(100vw-16px)]"
       >
         <AnimatePresence mode="wait">
           {isCollapsed ? (
@@ -704,7 +704,7 @@ export const SuperheroFX = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               onClick={() => setIsCollapsed(false)}
-              className="group flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-slate-900/90 border border-white/15 backdrop-blur-xl shadow-2xl text-xs font-mono text-white/90 hover:border-green-500/50 hover:shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all cursor-pointer"
+              className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-full bg-slate-900/90 border border-white/15 backdrop-blur-xl shadow-2xl text-[11px] sm:text-xs font-mono text-white/90 hover:border-green-500/50 hover:shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all cursor-pointer whitespace-nowrap"
               title="Open Hero Mode Selector (Press T for Thor, S for Spider-Man, B for Batman, M for Matrix)"
             >
               <Sparkles className="w-4 h-4 text-green-400 animate-spin" style={{ animationDuration: '6s' }} />
@@ -719,20 +719,20 @@ export const SuperheroFX = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 20, opacity: 0 }}
-              className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-950/90 border border-white/10 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.7)] text-xs"
+              className="flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-2xl bg-slate-950/95 border border-white/10 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.8)] text-xs max-w-full overflow-x-auto scrollbar-none"
             >
               {/* Cyber Mode (Default Clean) */}
               <button
                 type="button"
                 onClick={() => switchMode('cyber')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all cursor-pointer ${
                   mode === 'cyber'
                     ? 'bg-green-500/20 text-green-400 border border-green-500/40 shadow-[0_0_15px_rgba(34,197,94,0.3)]'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
                 title="Default Clean Cyber Matrix (Shortcut: M)"
               >
-                <Shield className="w-3.5 h-3.5" />
+                <Shield className="w-3.5 h-3.5 flex-shrink-0" />
                 <span>Cyber</span>
               </button>
 
@@ -740,14 +740,14 @@ export const SuperheroFX = () => {
               <button
                 type="button"
                 onClick={() => switchMode('thor')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all cursor-pointer ${
                   mode === 'thor'
                     ? 'bg-sky-500/25 text-sky-300 border border-sky-400/50 shadow-[0_0_20px_rgba(56,189,248,0.4)] font-bold'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
                 title="Thor: God of Thunder Mode (Shortcut: T). Click anywhere for Mjolnir & Stormbreaker thunder hammer strikes (Pure SFX)!"
               >
-                <Zap className="w-3.5 h-3.5 text-sky-400" />
+                <Zap className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" />
                 <span>Thor</span>
               </button>
 
@@ -755,14 +755,14 @@ export const SuperheroFX = () => {
               <button
                 type="button"
                 onClick={() => switchMode('spiderman')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all cursor-pointer ${
                   mode === 'spiderman'
                     ? 'bg-red-500/25 text-rose-300 border border-rose-500/50 shadow-[0_0_20px_rgba(244,63,94,0.4)] font-bold'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
                 title="Spider-Man: Web-Slinger Mode (Shortcut: S). Click anywhere to shoot webs!"
               >
-                <span className="text-sm leading-none">🕷️</span>
+                <span className="text-sm leading-none flex-shrink-0">🕷️</span>
                 <span>Spidey</span>
               </button>
 
@@ -770,24 +770,24 @@ export const SuperheroFX = () => {
               <button
                 type="button"
                 onClick={() => switchMode('batman')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs transition-all cursor-pointer ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all cursor-pointer ${
                   mode === 'batman'
                     ? 'bg-amber-500/25 text-amber-300 border border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.4)] font-bold'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
                 title="The Batman: Dark Knight / Vengeance Mode (Shortcut: B). 1st Click: 'I'm Batman' + Batwing Whoosh, 2nd Click: 'I'm Vengeance' + Combat Strike!"
               >
-                <span className="text-sm leading-none">🦇</span>
+                <span className="text-sm leading-none flex-shrink-0">🦇</span>
                 <span>Batman</span>
               </button>
 
-              <div className="w-[1px] h-4 bg-white/15 mx-0.5" />
+              <div className="w-[1px] h-4 bg-white/15 mx-0.5 flex-shrink-0" />
 
               {/* Sound FX Toggle */}
               <button
                 type="button"
                 onClick={handleToggleSound}
-                className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                className={`p-1 sm:p-1.5 rounded-lg transition-all cursor-pointer flex-shrink-0 ${
                   soundEnabled
                     ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 shadow-[0_0_10px_rgba(234,179,8,0.3)]'
                     : 'text-white/40 hover:text-white/70 hover:bg-white/5'
@@ -801,7 +801,7 @@ export const SuperheroFX = () => {
               <button
                 type="button"
                 onClick={() => setIsCollapsed(true)}
-                className="p-1.5 text-white/30 hover:text-white/80 rounded-lg hover:bg-white/5 transition-all cursor-pointer"
+                className="p-1 sm:p-1.5 text-white/30 hover:text-white/80 rounded-lg hover:bg-white/5 transition-all cursor-pointer flex-shrink-0"
                 title="Minimize hero selector"
               >
                 <X className="w-3.5 h-3.5" />

@@ -67,6 +67,13 @@ export const GithubConsistency = () => {
     };
   }, []);
 
+  // Auto-scroll heatmap to current (latest) activity on mobile screens
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+    }
+  }, [weeks]);
+
   // Sorted list of all contributions chronologically
   const sortedContributions = useMemo(() => {
     if (!data?.contributions) return [];
@@ -203,7 +210,7 @@ export const GithubConsistency = () => {
       <SpotlightCard
         enableTilt={false}
         spotlightColor="rgba(16, 185, 129, 0.16)"
-        className="p-6 md:p-8 bg-[#070d1b]/95 border-emerald-500/20 hover:border-emerald-500/40 transition-all rounded-3xl"
+        className="p-3.5 sm:p-6 md:p-8 bg-[#070d1b]/95 border-emerald-500/20 hover:border-emerald-500/40 transition-all rounded-2xl sm:rounded-3xl"
       >
         {/* Top Header & Badges */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/5">
@@ -265,66 +272,72 @@ export const GithubConsistency = () => {
         </div>
 
         {/* 4 Metric Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 my-6">
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
-            <div className="flex items-center justify-between text-gray-400 mb-2">
-              <span className="text-[11px] font-medium uppercase tracking-wider">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 my-4 sm:my-6">
+          <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
+            <div className="flex items-center justify-between text-gray-400 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-[11px] font-medium uppercase tracking-wider truncate mr-1">
                 Contributions
               </span>
-              <GitCommit size={16} className="text-emerald-400" />
+              <GitCommit size={14} className="text-emerald-400 flex-shrink-0 sm:w-4 sm:h-4" />
             </div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl md:text-3xl font-extrabold text-white">
+            <div className="flex items-baseline gap-1 sm:gap-1.5 flex-nowrap overflow-hidden">
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-none">
                 {stats.totalInView}
               </span>
-              <span className="text-[10px] text-emerald-400 font-semibold">
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] text-emerald-400 font-semibold whitespace-nowrap truncate">
                 in {selectedYear === "lastYear" ? "365 days" : selectedYear}
               </span>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
-            <div className="flex items-center justify-between text-gray-400 mb-2">
-              <span className="text-[11px] font-medium uppercase tracking-wider">
+          <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
+            <div className="flex items-center justify-between text-gray-400 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-[11px] font-medium uppercase tracking-wider truncate mr-1">
                 Current Streak
               </span>
-              <Flame size={16} className="text-amber-400" />
+              <Flame size={14} className="text-amber-400 flex-shrink-0 sm:w-4 sm:h-4" />
             </div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl md:text-3xl font-extrabold text-white">
+            <div className="flex items-baseline gap-1 sm:gap-1.5 flex-nowrap overflow-hidden">
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-none">
                 {stats.currentStreak}
               </span>
-              <span className="text-[10px] text-amber-400 font-semibold">days active</span>
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] text-amber-400 font-semibold whitespace-nowrap truncate">
+                days active
+              </span>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
-            <div className="flex items-center justify-between text-gray-400 mb-2">
-              <span className="text-[11px] font-medium uppercase tracking-wider">
+          <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
+            <div className="flex items-center justify-between text-gray-400 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-[11px] font-medium uppercase tracking-wider truncate mr-1">
                 Longest Streak
               </span>
-              <Trophy size={16} className="text-emerald-400" />
+              <Trophy size={14} className="text-emerald-400 flex-shrink-0 sm:w-4 sm:h-4" />
             </div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl md:text-3xl font-extrabold text-white">
+            <div className="flex items-baseline gap-1 sm:gap-1.5 flex-nowrap overflow-hidden">
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-none">
                 {stats.maxStreak}
               </span>
-              <span className="text-[10px] text-emerald-400 font-semibold">consecutive</span>
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] text-emerald-400 font-semibold whitespace-nowrap truncate">
+                consecutive
+              </span>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
-            <div className="flex items-center justify-between text-gray-400 mb-2">
-              <span className="text-[11px] font-medium uppercase tracking-wider">
+          <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
+            <div className="flex items-center justify-between text-gray-400 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-[11px] font-medium uppercase tracking-wider truncate mr-1">
                 Repositories
               </span>
-              <Layers size={16} className="text-emerald-400" />
+              <Layers size={14} className="text-emerald-400 flex-shrink-0 sm:w-4 sm:h-4" />
             </div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl md:text-3xl font-extrabold text-white">
+            <div className="flex items-baseline gap-1 sm:gap-1.5 flex-nowrap overflow-hidden">
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-none">
                 {stats.repos}
               </span>
-              <span className="text-[10px] text-emerald-400 font-semibold">public repos</span>
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] text-emerald-400 font-semibold whitespace-nowrap truncate">
+                public repos
+              </span>
             </div>
           </div>
         </div>
@@ -332,12 +345,12 @@ export const GithubConsistency = () => {
         {/* Heatmap Section */}
         <div className="relative pt-2">
           {/* Mobile scroll indicator */}
-          <div className="flex items-center justify-between text-[11px] text-gray-400 mb-2">
+          <div className="flex items-center justify-between text-xs sm:text-sm text-gray-300 font-medium mb-3 px-0.5">
             <div className="flex items-center gap-1.5">
-              <Activity size={13} className="text-emerald-400" />
+              <Activity size={14} className="text-emerald-400" />
               <span>Contribution Heatmap</span>
             </div>
-            <span className="block md:hidden text-[10px] text-emerald-400/80">
+            <span className="block md:hidden text-[10px] sm:text-[11px] text-emerald-400/90 font-mono tracking-wide">
               Scroll horizontally →
             </span>
           </div>
