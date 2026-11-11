@@ -6,18 +6,27 @@ import EmptyState from "./EmptyState";
 
 // Self-hosted, compressed screenshots (previously loaded from a slow third-party host)
 import redAvengersImg from "../assets/projects/red-avengers.webp";
+import redAvengersMobileImg from "../assets/projects/red-avengers-mobile.webp";
+import ben10Img from "../assets/projects/ben-10.webp";
+import ben10MobileImg from "../assets/projects/ben-10-mobile.webp";
 import portfolioImg from "../assets/projects/portfolio.webp";
+import portfolioMobileImg from "../assets/projects/portfolio-mobile.webp";
 import bloodHeroesImg from "../assets/projects/blood-heroes.webp";
+import bloodHeroesMobileImg from "../assets/projects/blood-heroes-mobile.webp";
 import homeNestImg from "../assets/projects/home-nest.webp";
+import homeNestMobileImg from "../assets/projects/home-nest-mobile.webp";
 import heroUiImg from "../assets/projects/hero-ui.webp";
+import heroUiMobileImg from "../assets/projects/hero-ui-mobile.webp";
 import mockflowImg from "../assets/projects/mockflow.webp";
+import mockflowMobileImg from "../assets/projects/mockflow-mobile.webp";
 import vortixImg from "../assets/projects/vortix.webp";
+import vortixMobileImg from "../assets/projects/vortix-mobile.webp";
 import { SpotlightCard } from "./SpotlightCard";
 import { HackerText } from "./HackerText";
 import { GithubConsistency } from "./GithubConsistency";
 
 // Image with skeleton while loading and a graceful fallback if it fails
-const ProjectImage = ({ src, alt }) => {
+const ProjectImage = ({ src, mobileSrc, alt }) => {
   const [status, setStatus] = useState("loading");
 
   if (status === "error" || !src) {
@@ -32,17 +41,28 @@ const ProjectImage = ({ src, alt }) => {
   return (
     <>
       {status === "loading" && <div className="absolute inset-0 bg-white/5 animate-pulse" />}
-      <img
-        src={src}
-        alt={alt}
-        width={1000}
-        height={560}
-        loading="lazy"
-        decoding="async"
-        onLoad={() => setStatus("loaded")}
-        onError={() => setStatus("error")}
-        className={`w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105 ${status === "loaded" ? "opacity-100" : "opacity-0"}`}
-      />
+      <picture className="w-full h-full block">
+        {mobileSrc && (
+          <source
+            media="(max-width: 640px)"
+            srcSet={mobileSrc}
+            type="image/webp"
+          />
+        )}
+        <img
+          src={src}
+          alt={alt}
+          width={1000}
+          height={560}
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setStatus("loaded")}
+          onError={() => setStatus("error")}
+          className={`w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105 ${
+            status === "loaded" ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </picture>
     </>
   );
 };
@@ -58,6 +78,8 @@ const Projects = () => {
       description:
         "A Smart AI-Integrated Blood Donation and Management System. Features an AI Eligibility Bot (Red Bot), real-time emergency alerts via Socket.io, and secure financial donations for blood camps.",
       image: redAvengersImg,
+
+      mobileImage: redAvengersMobileImg,
       technologies: [
         "React",
         "Node.js",
@@ -71,11 +93,31 @@ const Projects = () => {
       githubUrl: "https://github.com/emon35410/red-avengers",
     },
     {
+      title: "Ben 10 Universe",
+      category: "Next.js & TypeScript",
+      description:
+        "A canon fan encyclopedia and Omnitrix research archive covering Ben 10, Alien Force, and Ultimate Alien. Features interactive alien transmutation dossiers, power stats, side-by-side comparison, and verified lore citations.",
+      image: ben10Img,
+
+      mobileImage: ben10MobileImg,
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Lucide React",
+      ],
+      liveUrl: "https://ben-10-ten.vercel.app/",
+      githubUrl: "https://github.com/emon35410/Ben-10",
+    },
+    {
       title: "Personal Portfolio",
       category: "Frontend Excellence",
       description:
         "A high-performance personal brand space engineered for seamless user experience. It features Lenis smooth scrolling, intricate Framer Motion animations, and a fully responsive design. Integrated with Formspree for robust lead generation and optimized with Tailwind CSS for industry-leading load speeds.",
       image: portfolioImg,
+
+      mobileImage: portfolioMobileImg,
       technologies: [
         "React",
         "Tailwind CSS",
@@ -93,6 +135,8 @@ const Projects = () => {
       description:
         "Connects blood donors and recipients with real-time requests. Features a complex dashboard for management with user role-based access control.",
       image: bloodHeroesImg,
+
+      mobileImage: bloodHeroesMobileImg,
       technologies: ["React", "Node.js", "Express", "MongoDB"],
       liveUrl: "https://bloodherosemon.netlify.app/",
       githubUrl: "https://github.com/emon35410/BloodHeros-Client",
@@ -103,6 +147,8 @@ const Projects = () => {
       description:
         "A premium property listing platform with secure authentication, property management for agents, and advanced search filters.",
       image: homeNestImg,
+
+      mobileImage: homeNestMobileImg,
       technologies: ["React", "Node.js", "Firebase", "Tailwind"],
       liveUrl: "https://home-nest-mhe.netlify.app/",
       githubUrl: "https://github.com/emon35410/HomeNest-Client",
@@ -112,8 +158,9 @@ const Projects = () => {
       category: "Creative Design",
       description:
         "A sleek, tool-based web app focused on providing users with a smooth, dark-themed responsive interface and AOS animations.",
-      image:
-        heroUiImg,
+      image: heroUiImg,
+
+      mobileImage: heroUiMobileImg,
       technologies: ["JavaScript", "Tailwind", "AOS"],
       liveUrl: "https://luminous-tanuki-c653df.netlify.app/",
       githubUrl: "https://github.com/emon35410/Assignment-8",
@@ -123,7 +170,9 @@ const Projects = () => {
       category: "SaaS Product",
       description:
         "A developer-centric SaaS platform that allows users to instantly generate mock API endpoints from custom JSON data for rapid prototyping and testing.",
-      image: mockflowImg, 
+      image: mockflowImg,
+
+      mobileImage: mockflowMobileImg, 
       technologies: [
         "React",
         "Node.js",
@@ -139,7 +188,9 @@ const Projects = () => {
       title: "Vortix Lang",
       category: "Compiler Construction",
       description: "A custom programming language and interpreter built for Compiler Construction, featuring lexing, parsing, and execution capabilities with structured syntax. It also includes a fully functional web-based live editor.",
-      image: vortixImg, 
+      image: vortixImg,
+
+      mobileImage: vortixMobileImg, 
       technologies: [
         "C",
         "Flex",
@@ -214,7 +265,7 @@ const Projects = () => {
               >
                 {/* Image Section */}
                 <div className="relative h-64 sm:h-72 overflow-hidden">
-                  <ProjectImage src={project.image} alt={`${project.title} screenshot`} />
+                  <ProjectImage src={project.image} mobileSrc={project.mobileImage} alt={`${project.title} screenshot`} />
 
                   {/* Overlay for Quick Links on Hover */}
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
